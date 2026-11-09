@@ -41,19 +41,19 @@ const ROLE_HIGHLIGHTS = [
   {
     role: "Full-Stack Engineer Intern",
     whyFit:
-      "Proven track record shipping end-to-end systems from database schema to polished UI, demonstrated in FitnessVals (Laravel 12 + Go + Tailwind) and Debouquets E-Commerce.",
+      "Ready to own features end-to-end. Experienced connecting relational database schemas, structuring RESTful APIs in Laravel and Go, and building clean, accessible React interfaces.",
     keyTech: ["Next.js / React", "TypeScript", "Laravel (PHP)", "Go", "MySQL / PostgreSQL"],
   },
   {
     role: "Frontend Developer Intern",
     whyFit:
-      "Strong eye for UI/UX craft, responsive layouts, web performance, and accessible component engineering using React 19, Next.js, and Tailwind CSS.",
+      "Focused on component architecture, fluid animations, and responsive web performance. Deeply familiar with modern React 19, Next.js App Router, TypeScript, and Tailwind CSS.",
     keyTech: ["React & Next.js", "TypeScript", "Tailwind CSS", "Responsive UI/UX", "Web Animation"],
   },
   {
     role: "Backend / AI Engineer Intern",
     whyFit:
-      "Experienced combining high-throughput backend services (Go, Laravel Reverb WebSockets) with Python machine learning pipelines (EduBot VAK classifier).",
+      "Comfortable modeling relational schemas, building concurrent services in Go, and deploying machine learning inference endpoints with Python.",
     keyTech: ["Go (Golang)", "Python & Flask", "scikit-learn", "Laravel", "REST & WebSockets"],
   },
 ];

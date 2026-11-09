@@ -41,9 +41,9 @@ export const portfolioData = {
     status: "OPEN FOR FULL-STACK INTERNSHIP",
     location: "Malang, Indonesia",
     tagline:
-      "Bridging technical complexity with intuitive, human-centered interfaces. Building modern full-stack web applications, AI-driven systems, and retro-infused digital playgrounds.",
+      "Computer Science undergraduate crafting robust full-stack systems and practical AI tools. Focused on high-throughput backends, clean frontend architecture, and interfaces people enjoy using.",
     about:
-      "I am a Computer Science student at BINUS University based in Malang, Indonesia, and a Full-Stack Developer with a deep curiosity for AI systems, distributed design, and clean web engineering. Whether crafting high-throughput backends with Laravel and Go, building responsive React frontends, or experimenting with intelligent educational models, I strive to build software that is both technically rigorous and delightful to use. Currently seeking Full-Stack Developer internship opportunities to contribute to high-impact engineering teams.",
+      "I am a Computer Science student at BINUS University based in Malang, Indonesia, and a Full-Stack Developer focused on building reliable web applications and practical AI systems. I divide my time between engineering high-throughput backend services with Laravel and Go, crafting component-driven frontends in React and Next.js, and training applied machine learning models. I value clean code, thoughtful system architecture, and software that solves real user pain points. Currently seeking Full-Stack Developer internship opportunities to contribute and ship features alongside high-impact engineering teams.",
     traits: [
       { label: "FOCUS", val: "Full-Stack + AI" },
       { label: "GUILD", val: "BINUS University" },
@@ -78,11 +78,11 @@ export const portfolioData = {
       category: "Full-Stack / AI Health",
       badge: "FEATURED QUEST",
       description:
-        "Next-generation AI-powered gym management platform and personalized health ecosystem combining real-time tracking, intelligent workout routines, and high-performance microservices.",
+        "A full-stack fitness management ecosystem built with a dual-backend architecture—combining Laravel for rich business domains with Go for real-time telemetry and high-throughput metrics.",
       highlights: [
-        "Hybrid backend architecture utilizing Laravel 12 for business domain and Go 1.25 for high-throughput metrics",
-        "Real-time event broadcasting powered by Laravel Reverb WebSockets",
-        "Modern interface built with Tailwind CSS 4 & Vite 7",
+        "Designed dual-service architecture: Laravel 12 handles user authentication and membership domains, while Go 1.25 processes high-frequency workout telemetry",
+        "Implemented instant live event broadcasting and notification feeds powered by Laravel Reverb WebSockets",
+        "Built an optimized dashboard interface using Tailwind CSS v4 and Vite, ensuring snappy navigation across mobile and desktop",
       ],
       stack: ["Laravel 12", "Go", "Tailwind CSS v4", "Vite", "WebSockets", "PHP"],
       githubUrl: "https://github.com/Arthursakaa/Web_FitnessVals",
@@ -96,11 +96,11 @@ export const portfolioData = {
       category: "AI / Educational Tech",
       badge: "AI ENGINE",
       description:
-        "Intelligent diagnostic platform determining children's learning styles based on the VAK (Visual, Auditory, Kinesthetic) model using supervised machine learning.",
+        "An educational diagnostic platform that classifies students' cognitive learning preferences (VAK model) through a custom supervised machine learning pipeline.",
       highlights: [
-        "Custom ML classification model trained on student learning behavior datasets",
-        "Interactive questionnaire interface with instant visual diagnostic breakdown",
-        "Python Flask backend serving model inference endpoints to a responsive client",
+        "Trained and evaluated a multi-class classifier using scikit-learn on student behavioral survey datasets",
+        "Designed an engaging diagnostic questionnaire with immediate visual breakdown of learning style tendencies",
+        "Deployed a lightweight Python Flask inference API delivering sub-second model predictions directly to the web client",
       ],
       stack: ["Python", "scikit-learn", "Flask", "JavaScript", "HTML5/CSS3"],
       demoUrl: "https://arthursakaa.github.io/Edubot-GayaBelajar/",
@@ -117,9 +117,9 @@ export const portfolioData = {
       description:
         "End-to-end floral boutique e-commerce web platform featuring dynamic catalog filtering, customer cart & wishlist, order tracking, and administrative order fulfillment.",
       highlights: [
-        "Comprehensive database schema with Cart, Order, Payment, Shipping, and Review entities",
-        "Full administrative dashboard for catalog management and transaction verification",
-        "Clean server-rendered architecture with Laravel Blade and responsive styling",
+        "Architected comprehensive relational database schema covering Cart, Order, Payment, Shipping, and Review entities",
+        "Engineered full administrative dashboard for real-time inventory management and transaction verification",
+        "Implemented clean server-rendered architecture with Laravel Blade and responsive Tailwind CSS styling",
       ],
       stack: ["Laravel", "PHP", "Blade", "MySQL", "Tailwind CSS"],
       githubUrl: "https://github.com/Arthursakaa/Web_Debouquets",
@@ -132,10 +132,10 @@ export const portfolioData = {
       category: "Frontend / Creative",
       badge: "PORTFOLIO",
       description:
-        "Dynamic web portfolio presenting professional milestones, technical competencies, and project showcases with smooth micro-interactions.",
+        "Interactive web portfolio presenting professional milestones, technical competencies, and project showcases with smooth micro-interactions.",
       highlights: [
-        "Component-driven React architecture built with Vite bundler",
-        "Responsive bento-grid layouts with scroll-triggered animations",
+        "Built component-driven React architecture bundled with Vite for fast HMR and optimized load times",
+        "Designed responsive bento-grid layouts with scroll-triggered animations and high-contrast typography",
       ],
       stack: ["React", "JavaScript", "Vite", "CSS3"],
       githubUrl: "https://github.com/Arthursakaa/WebCV_PPT",
@@ -191,11 +191,19 @@ export const portfolioData = {
 
   timeline: [
     {
+      period: "2021 - 2023",
+      role: "High School Diploma — Science & Mathematics (MIPA)",
+      organization: "SMAK Kesuma Mataram",
+      description:
+        "Majored in Science & Mathematics (MIPA). Developed an early passion for software development through Informatics coursework—learning computing fundamentals, building foundational HTML websites, and experimenting with introductory IoT systems.",
+      type: "Education",
+    },
+    {
       period: "2024 - Present",
       role: "Undergraduate in Computer Science",
       organization: "Bina Nusantara (BINUS) University",
       description:
-        "Focusing on Software Engineering, Data Structures & Algorithms, Distributed Systems, Object-Oriented Analysis, and Machine Learning.",
+        "Pursuing B.Comp.Sc. with coursework focused on Software Engineering, Data Structures & Algorithms, Object-Oriented Analysis, and Database Systems. Actively translating classroom theory into production-ready web projects.",
       type: "Education",
     },
     {
@@ -203,7 +211,7 @@ export const portfolioData = {
       role: "Full-Stack Project Developer",
       organization: "Independent & Academic Labs",
       description:
-        "Architected FitnessVals (Laravel 12 + Go + WebSockets) and built EduBot ML diagnostic system for personalized learning evaluation.",
+        "Architected FitnessVals (Laravel 12 + Go + WebSockets) and engineered the EduBot ML diagnostic system for personalized learning evaluation.",
       type: "Experience",
     },
     {
@@ -211,7 +219,7 @@ export const portfolioData = {
       role: "Open for Full-Stack Developer Internship",
       organization: "Target: Summer / Fall 2026",
       description:
-        "Seeking opportunities to contribute to high-impact teams in full-stack web applications, backend services, and modern UI architectures.",
+        "Seeking opportunities to contribute to high-impact engineering teams in full-stack web applications, backend services, and modern UI architectures.",
       type: "Milestone",
     },
   ] as TimelineItem[],

@@ -246,37 +246,51 @@ body {
   }
 }
 
-/* Timeline spine draws with scroll (plan 011). The container owns a named view
-   timeline; its ::before (the spine) reads it. Tip tracks the 65% line. */
-@keyframes spineGrow {
-  from { scale: 1 0; }
-  to   { scale: 1 1; }
+/* RPG Questline Timeline Progress Bar & Quest Marker (composite-only transitions) */
+.timeline-rail-fill {
+  transition: transform 420ms var(--ease-out-strong);
 }
 
-@supports (animation-timeline: view()) {
-  .timeline-spine {
-    view-timeline: --spine block;
-    view-timeline-inset: 0 35%;
-  }
+.timeline-quest-marker {
+  transition: transform 420ms var(--ease-out-strong);
+}
 
-  .timeline-spine::before {
-    transform-origin: top;
-    animation: spineGrow 1ms linear both;
-    animation-timeline: --spine;
-    animation-range: entry 0% exit 0%;
-  }
+.timeline-checkpoint {
+  transition:
+    transform 220ms var(--ease-out-strong),
+    background-color 180ms var(--ease-out-strong),
+    box-shadow 180ms var(--ease-out-strong);
+}
+
+@keyframes questPointerBob {
+  0%   { translate: 0 0; }
+  50%  { translate: 3px 0; }
+  100% { translate: 3px 0; }
+}
+
+.quest-pointer-bob {
+  animation: questPointerBob 1s step-end infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .timeline-spine::before {
+  .timeline-rail-fill,
+  .timeline-quest-marker,
+  .timeline-checkpoint {
+    transition: none !important;
+  }
+  .quest-pointer-bob {
     animation: none !important;
-    scale: none !important;
   }
 }
 
-.reduce-motion .timeline-spine::before {
+.reduce-motion .timeline-rail-fill,
+.reduce-motion .timeline-quest-marker,
+.reduce-motion .timeline-checkpoint {
+  transition: none !important;
+}
+
+.reduce-motion .quest-pointer-bob {
   animation: none !important;
-  scale: none !important;
 }
 
 /* Pixel-wipe for section headings (plan 012). Uncovers left to right in 12
@@ -364,6 +378,50 @@ body {
   animation: spriteHop 320ms var(--ease-out-strong);
 }
 
+/* BOT.v2 Antenna pulse & Neko ears twitch */
+@keyframes antennaPulse {
+  0%   { opacity: 0.85; filter: drop-shadow(0 0 0 rgba(234, 88, 12, 0)); }
+  50%  { opacity: 1; filter: drop-shadow(0 -2px 3px rgba(234, 88, 12, 0.75)); }
+  100% { opacity: 0.85; filter: drop-shadow(0 0 0 rgba(234, 88, 12, 0)); }
+}
+
+.bot-antenna-pulse {
+  animation: antennaPulse 1.8s var(--ease-in-out-strong) infinite;
+}
+
+@keyframes earsTwitch {
+  0%, 88%, 100% { translate: 0 0; }
+  92%           { translate: -1px -1px; }
+  96%           { translate: 1px -1px; }
+}
+
+.bot-ears-twitch {
+  animation: earsTwitch 4.2s step-end infinite;
+}
+
+/* BOT.v2 Pop-up Emote Bubble */
+@keyframes botEmotePop {
+  0%   { opacity: 0; transform: translateY(6px) scale(0.7); }
+  35%  { opacity: 1; transform: translateY(-4px) scale(1.1); }
+  60%  { opacity: 1; transform: translateY(-2px) scale(1); }
+  100% { opacity: 0; transform: translateY(-10px) scale(0.9); }
+}
+
+.bot-emote-bubble {
+  animation: botEmotePop 1.6s var(--ease-out-strong) forwards;
+}
+
+/* BOT.v2 Sleepy Zzz floating letters */
+.bot-zzz span {
+  position: absolute;
+  right: -8px;
+  top: -6px;
+  opacity: 0;
+  animation: footerZ 2.2s steps(4, end) infinite;
+}
+.bot-zzz span:nth-child(2) { animation-delay: 0.7s; }
+.bot-zzz span:nth-child(3) { animation-delay: 1.4s; }
+
 @media (prefers-reduced-motion: reduce) {
   .sprite-blink .sprite-frame-main,
   .sprite-blink .sprite-frame-alt,
@@ -397,77 +455,6 @@ body {
   user-select: none !important;
 }
 
-/* Timeline cat (plan 017). The track is as tall as the path; translating it by
-   -100% of its own height moves the cat from the top of the path to the bottom,
-   on the same --spine timeline as the spine, so it rides the spine's tip. */
-.timeline-cat-track {
-  position: absolute;
-  top: 0;
-  left: 20px; /* right edge of the spine: left-4 (16px) + w-1 (4px) */
-  width: 0;
-  height: 100%;
-  z-index: 5;
-  pointer-events: none;
-}
-
-@media (min-width: 640px) {
-  .timeline-cat-track { left: 28px; } /* sm:left-6 (24px) + 4px */
-}
-
-.timeline-cat {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 20px;
-  height: 28px;
-}
-
-/* Sprite is 28x20; rotate it to face down with its feet against the spine */
-.timeline-cat svg {
-  position: absolute;
-  left: -4px;
-  top: 4px;
-  rotate: 90deg;
-}
-
-@keyframes catTrack {
-  from { translate: 0 -100%; }
-  to   { translate: 0 0; }
-}
-
-@keyframes catLegsA {
-  0%   { opacity: 1; }
-  50%  { opacity: 0; }
-  100% { opacity: 0; }
-}
-
-@keyframes catLegsB {
-  0%   { opacity: 0; }
-  50%  { opacity: 1; }
-  100% { opacity: 1; }
-}
-
-@supports (animation-timeline: view()) {
-  .timeline-cat-track {
-    animation: catTrack 1ms linear both;
-    animation-timeline: --spine;
-    animation-range: entry 0% exit 0%;
-  }
-
-  /* 24 leg cycles over the path: legs move only while the page scrolls */
-  .timeline-cat .cat-legs-a {
-    animation: catLegsA 1ms step-end 24 both;
-    animation-timeline: --spine;
-    animation-range: entry 0% exit 0%;
-  }
-
-  .timeline-cat .cat-legs-b {
-    animation: catLegsB 1ms step-end 24 both;
-    animation-timeline: --spine;
-    animation-range: entry 0% exit 0%;
-  }
-}
-
 /* Save-point crystal: 3px bob in two hard steps */
 @keyframes saveBob {
   0%   { translate: 0 0; }
@@ -480,17 +467,11 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .timeline-cat-track,
-  .timeline-cat .cat-legs-a,
-  .timeline-cat .cat-legs-b,
   .save-bob {
     animation: none !important;
   }
 }
 
-.reduce-motion .timeline-cat-track,
-.reduce-motion .timeline-cat .cat-legs-a,
-.reduce-motion .timeline-cat .cat-legs-b,
 .reduce-motion .save-bob {
   animation: none !important;
 }

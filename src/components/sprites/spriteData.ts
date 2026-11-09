@@ -49,6 +49,60 @@ export const BOT_BODY_BLINK = [
   "..kk....kk..",
 ] as const;
 
+/** Happy carets (^ ^) eyes + wide warm smile */
+export const BOT_BODY_HAPPY = [
+  "............",
+  "............",
+  "..kkkkkkkk..",
+  "..kbbbbbbk..",
+  "..kkbkkbkk..",
+  "..kbkbbkbk..",
+  "..kbkkkkbk..",
+  "..kkkkkkkk..",
+  "...kkkkkk...",
+  "..kggggggk..",
+  ".kkgwggwgkk.",
+  "..kggggggk..",
+  "..kkkkkkkk..",
+  "..kk....kk..",
+] as const;
+
+/** Surprised / startled eyes (O O) when dragged or poked suddenly */
+export const BOT_BODY_SHOCKED = [
+  "............",
+  "............",
+  "..kkkkkkkk..",
+  "..kbbbbbbk..",
+  "..kkkbbkkk..",
+  "..kkkbbkkk..",
+  "..kbkkkkbk..",
+  "..kkkkkkkk..",
+  "...kkkkkk...",
+  "..kggggggk..",
+  ".kkgwggwgkk.",
+  "..kggggggk..",
+  "..kkkkkkkk..",
+  "..kk....kk..",
+] as const;
+
+/** Sleepy closed eyes (- -) during long idle */
+export const BOT_BODY_SLEEP = [
+  "............",
+  "............",
+  "..kkkkkkkk..",
+  "..kbbbbbbk..",
+  "..kbbbbbbk..",
+  "..kkkkkkkk..",
+  "..kbbbbbbk..",
+  "..kkkkkkkk..",
+  "...kkkkkk...",
+  "..kggggggk..",
+  ".kkgwggwgkk.",
+  "..kggggggk..",
+  "..kkkkkkkk..",
+  "..kk....kk..",
+] as const;
+
 export const BOT_ANTENNA = [
   ".....oo.....",
   ".....kk.....",
@@ -136,4 +190,38 @@ export const COIN = [
   "kyyyyyyk",
   ".kyyyyk.",
   "..kkkk..",
+] as const;
+
+// 8x8 Mini Emote Bubbles for BOT.v2
+export const EMOTE_HEART = [
+  "........",
+  ".koo.ook",
+  "koooooko",
+  "kooooooo",
+  ".koooook",
+  "..koook.",
+  "...kok..",
+  "....k...",
+] as const;
+
+export const EMOTE_LIGHTNING = [
+  "....yy..",
+  "...yyy..",
+  "..yyy...",
+  ".yyyyyy.",
+  "....yy..",
+  "...yy...",
+  "..yy....",
+  "........",
+] as const;
+
+export const EMOTE_EXCLAMATION = [
+  "...oo...",
+  "...oo...",
+  "...oo...",
+  "...oo...",
+  "........",
+  "...oo...",
+  "........",
+  "........",
 ] as const;

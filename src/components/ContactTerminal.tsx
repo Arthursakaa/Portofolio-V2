@@ -355,7 +355,7 @@ export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
           </div>
 
           {/* BOT.v2's home, coin HUD, and draggable pet (plans 015, 016, 019) */}
-          <ArcadeCorner />
+          <ArcadeCorner soundEnabled={soundEnabled} />
           </div>
         </div>
       </div>

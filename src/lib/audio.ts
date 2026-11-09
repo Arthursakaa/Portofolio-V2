@@ -133,6 +133,19 @@ class RetroAudio {
   }
 
   /**
+   * Cheerful 8-bit R2-D2 style chirp/warble for BOT.v2
+   */
+  public playBotChirp() {
+    if (!this.enabled) return;
+    try {
+      const notes = [587.33, 880.0, 1174.66]; // D5 -> A5 -> D6
+      notes.forEach((freq, idx) => {
+        setTimeout(() => this.playBlip(freq, "triangle", 0.05, 0.05), idx * 40);
+      });
+    } catch {}
+  }
+
+  /**
    * Rewarding 8-bit coin chime (B5 -> E6) for Copy Email, Download CV, and Live Demo
    */
   public playCoin() {

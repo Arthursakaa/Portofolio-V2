@@ -19,6 +19,7 @@ interface PetRefs {
   el: RefObject<HTMLDivElement | null>;
   pos: RefObject<Pos>;
   raf: RefObject<number>;
+  setDragging?: (d: boolean) => void;
 }
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
@@ -93,6 +94,7 @@ function beginPress(refs: PetRefs, e: PointerEvent, target: HTMLElement, fromDoc
     if (!dragging) {
       if (Math.hypot(ev.clientX - startX, ev.clientY - startY) < DRAG_THRESHOLD) return;
       dragging = true;
+      refs.setDragging?.(true);
       stopFall(refs);
       if (fromDock) {
         const r = target.getBoundingClientRect();
@@ -112,6 +114,7 @@ function beginPress(refs: PetRefs, e: PointerEvent, target: HTMLElement, fromDoc
     target.removeEventListener("pointermove", onMove);
     target.removeEventListener("pointerup", onUp);
     target.removeEventListener("pointercancel", onUp);
+    refs.setDragging?.(false);
     if (dragging) {
       document.documentElement.classList.remove("pet-dragging");
       arcade.markDragEnd();
@@ -131,10 +134,11 @@ export function PetLayer() {
   const pos = useRef<Pos>({ x: 0, y: 0 });
   const raf = useRef(0);
   const [hopTick, setHopTick] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
 
   // Let the dock button (rendered by ArcadeCorner) start a drag
   useEffect(() => {
-    const refs: PetRefs = { el, pos, raf };
+    const refs: PetRefs = { el, pos, raf, setDragging: setIsDragging };
     const dock = document.querySelector<HTMLElement>("[data-pet-dock]");
     if (!dock) return;
     const onDown = (e: PointerEvent) => beginPress(refs, e, dock, true);
@@ -149,7 +153,7 @@ export function PetLayer() {
   // at the top-left corner on the frame it mounts. Also keeps it on screen on
   // resize and stops any fall when it goes home.
   useLayoutEffect(() => {
-    const refs: PetRefs = { el, pos, raf };
+    const refs: PetRefs = { el, pos, raf, setDragging: setIsDragging };
     if (!petOut) {
       stopFall(refs);
       return;
@@ -170,15 +174,15 @@ export function PetLayer() {
       ref={el}
       aria-hidden="true"
       className="arcade-pet"
-      onPointerDown={(e) => beginPress({ el, pos, raf }, e.nativeEvent, e.currentTarget, false)}
+      onPointerDown={(e) => beginPress({ el, pos, raf, setDragging: setIsDragging }, e.nativeEvent, e.currentTarget, false)}
       onClick={() => {
         if (arcade.justDragged()) return;
-        retroSound.playBlip(750, "triangle", 0.05);
+        retroSound.playBotChirp();
         setHopTick((t) => t + 1);
       }}
     >
       <span key={hopTick} className={`block ${hopTick > 0 ? "sprite-hop" : ""}`}>
-        <BotSprite neko={neko} className="sprite-blink" scale={4} />
+        <BotSprite neko={neko} mood={isDragging ? "shocked" : "normal"} className={isDragging ? "" : "sprite-blink"} scale={4} />
       </span>
     </div>,
     // Portal into the page root (not <body>): it carries the ANIM toggle's
