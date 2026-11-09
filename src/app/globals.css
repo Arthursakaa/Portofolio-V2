@@ -1,0 +1,626 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-pixel: var(--font-pixel), "Courier New", monospace;
+  --font-vt: var(--font-vt), "Courier New", monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", Arial, sans-serif;
+  
+  /* YOYU Paper & 8-Bit Color Palette */
+  --color-paper: #f4efe6;
+  --color-paper-card: #fffdf9;
+  --color-paper-muted: #e9e2d5;
+  --color-ink: #2b2723;
+  --color-ink-muted: #575049;
+  
+  --color-retro-green: #10b981;
+  --color-retro-orange: #ea580c;
+  --color-retro-blue: #2563eb;
+  --color-retro-yellow: #eab308;
+  --color-retro-purple: #8b5cf6;
+}
+
+:root {
+  --background: #f4efe6;
+  --foreground: #2b2723;
+  /* Emil Kowalski custom strong easing curves */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* overflow-x must be `clip`, never `hidden`: `hidden` computes overflow-y to
+   `auto`, which turns html/body into scroll containers. Then the sticky header
+   never sticks and CSS scroll timelines bind to the wrong scroller (plan 009). */
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  /* Sticky header must not cover anchor targets. Values = measured header
+     height + ~8px. Header heights: 136.5px <640px (not sticky there),
+     101px 640-1279px, 55px >=1280px. Re-measure if the header layout changes. */
+  scroll-padding-top: 0;
+}
+
+@media (min-width: 640px) {
+  html { scroll-padding-top: 112px; }
+}
+
+@media (min-width: 1280px) {
+  html { scroll-padding-top: 64px; }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+/* Hide scrollbar for clean retro interfaces */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Accessible visible keyboard focus ring (UI/UX Pro Max Priority 1) */
+:focus-visible {
+  outline: 2px solid #ea580c;
+  outline-offset: 2px;
+}
+
+/* Custom retro pixel utility classes */
+.font-pixel {
+  font-family: var(--font-pixel), "Courier New", monospace;
+}
+
+.font-vt {
+  font-family: var(--font-vt), "Courier New", monospace;
+}
+
+/* Hard pixel borders & stepped shadows */
+.pixel-border {
+  border: 2px solid #2b2723;
+  box-shadow: 3px 3px 0 0 #2b2723;
+}
+
+.pixel-border-sm {
+  border: 2px solid #2b2723;
+  box-shadow: 2px 2px 0 0 #2b2723;
+}
+
+.pixel-border-lg {
+  border: 3px solid #2b2723;
+  box-shadow: 5px 5px 0 0 #2b2723;
+}
+
+/* Responsive pressable button (Emil Design Eng: explicit composite properties, scale(0.97) on active, gated hover) */
+.pixel-btn {
+  border: 2px solid #2b2723;
+  box-shadow: 3px 3px 0 0 #2b2723;
+  cursor: pointer;
+  transition:
+    transform 150ms var(--ease-out-strong),
+    background-color 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pixel-btn:hover {
+    transform: translate(-1.5px, -1.5px);
+  }
+}
+
+.pixel-btn:active {
+  transform: translate(1.5px, 1.5px) scale(0.97);
+}
+
+/* Card hover lift gated for fine pointer devices */
+.pixel-card-interactive {
+  transition:
+    transform 200ms var(--ease-out-strong),
+    border-color 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pixel-card-interactive:hover {
+    transform: translateY(-3px);
+  }
+  /* When the lift is paired with a stepped pixel shadow, grow the shadow too so
+     the card reads as rising off the page instead of looking sheared/clipped
+     against its grid neighbour. */
+  .pixel-border.pixel-card-interactive {
+    transition:
+      transform 200ms var(--ease-out-strong),
+      box-shadow 200ms var(--ease-out-strong),
+      border-color 180ms ease;
+  }
+  .pixel-border.pixel-card-interactive:hover {
+    box-shadow: 6px 6px 0 0 #2b2723;
+  }
+}
+
+/* Scanlines overlay effect */
+.scanlines-overlay {
+  background: linear-gradient(
+    rgba(43, 39, 35, 0) 50%,
+    rgba(43, 39, 35, 0.08) 50%
+  );
+  background-size: 100% 4px;
+}
+
+/* Halftone / Dot-matrix texture overlay */
+.dot-matrix-bg {
+  background-image: radial-gradient(#2b2723 1px, transparent 1px);
+  background-size: 16px 16px;
+  background-color: #f4efe6;
+}
+
+/* Dither & Pixelated filter effect for photos */
+.retro-dither {
+  image-rendering: pixelated;
+  filter: contrast(130%) brightness(96%) grayscale(15%);
+  transition: filter 220ms var(--ease-out-strong), transform 220ms var(--ease-out-strong);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .retro-dither:hover {
+    image-rendering: auto;
+    filter: contrast(100%) brightness(100%) grayscale(0%);
+  }
+}
+
+/* Staggered entry animation (Emil Design Eng: short 50ms delays, composite-only) */
+@keyframes enterFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.stagger-enter {
+  opacity: 0;
+  animation: enterFadeUp 260ms var(--ease-out-strong) forwards;
+}
+
+.stagger-delay-1 { animation-delay: 40ms; }
+.stagger-delay-2 { animation-delay: 90ms; }
+.stagger-delay-3 { animation-delay: 140ms; }
+.stagger-delay-4 { animation-delay: 190ms; }
+
+/* Scroll reveal v2 (plan 008).
+   [data-reveal]       = group: observed by ScrollRevealObserver, gets
+                         data-revealed="true" once. A group never moves itself.
+   [data-reveal-item]  = item: fades up when every ancestor group is revealed,
+                         delayed by N x 60ms. An element with BOTH attributes
+                         reveals itself when it enters view.
+   Never put data-reveal-item on an element with its own transition
+   (.pixel-card-interactive, .pixel-btn): wrap it in a plain <div> instead.
+   Note: `translate` (like `transform`) makes the element a containing block
+   for fixed descendants while it is not `none`. The revealed state is
+   `translate: none`, so nothing is left behind. Fixed UI (the BOT.v2 pet, the
+   arcade toast) lives at the page root ([data-app-root]), which is never
+   transformed and carries the ANIM toggle's .reduce-motion class. */
+[data-reveal-item] {
+  transition:
+    opacity 400ms var(--ease-out-strong),
+    translate 400ms var(--ease-out-strong);
+}
+
+[data-reveal]:not([data-revealed="true"]) [data-reveal-item],
+[data-reveal-item][data-reveal]:not([data-revealed="true"]) {
+  opacity: 0;
+  translate: 0 12px;
+}
+
+[data-reveal-item="1"] { transition-delay: 60ms; }
+[data-reveal-item="2"] { transition-delay: 120ms; }
+[data-reveal-item="3"] { transition-delay: 180ms; }
+[data-reveal-item="4"] { transition-delay: 240ms; }
+[data-reveal-item="5"] { transition-delay: 300ms; }
+
+/* Scroll progress "XP bar" (plan 010). Hidden unless scroll timelines are
+   supported. Animates `scale`, not `transform`. Kept under reduced motion: it
+   only reports scroll position and never moves content. The 1ms duration is
+   converted to the whole scroll range, and still is under the 0.01ms clamp. */
+.xp-bar {
+  display: none;
+}
+
+@keyframes xpFill {
+  from { scale: 0 1; }
+  to   { scale: 1 1; }
+}
+
+@supports (animation-timeline: scroll()) {
+  .xp-bar {
+    display: block;
+    transform-origin: left center;
+    animation: xpFill 1ms steps(48, end) both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+/* Timeline spine draws with scroll (plan 011). The container owns a named view
+   timeline; its ::before (the spine) reads it. Tip tracks the 65% line. */
+@keyframes spineGrow {
+  from { scale: 1 0; }
+  to   { scale: 1 1; }
+}
+
+@supports (animation-timeline: view()) {
+  .timeline-spine {
+    view-timeline: --spine block;
+    view-timeline-inset: 0 35%;
+  }
+
+  .timeline-spine::before {
+    transform-origin: top;
+    animation: spineGrow 1ms linear both;
+    animation-timeline: --spine;
+    animation-range: entry 0% exit 0%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-spine::before {
+    animation: none !important;
+    scale: none !important;
+  }
+}
+
+.reduce-motion .timeline-spine::before {
+  animation: none !important;
+  scale: none !important;
+}
+
+/* Pixel-wipe for section headings (plan 012). Uncovers left to right in 12
+   steps once the section group is revealed. steps() is a deliberate retro
+   choice, used only on these six headings. */
+.pixel-wipe {
+  transition: clip-path 480ms steps(12, end) 120ms;
+}
+
+[data-reveal]:not([data-revealed="true"]) .pixel-wipe {
+  clip-path: inset(0 100% 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixel-wipe {
+    clip-path: none !important;
+    transition: none !important;
+  }
+}
+
+.reduce-motion .pixel-wipe {
+  clip-path: none !important;
+  transition: none !important;
+}
+
+/* Terminal boot sequence (plan 013). Initial terminal lines print one by one
+   when the Contact grid is revealed. --line is set inline per line. */
+.boot-line {
+  transition: opacity 0ms linear;
+  transition-delay: calc(300ms + var(--line, 0) * 80ms);
+}
+
+[data-reveal]:not([data-revealed="true"]) .boot-line {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot-line {
+    opacity: 1 !important;
+    transition: none !important;
+  }
+}
+
+.reduce-motion .boot-line {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+/* Pixel sprites (plan 014). Base state is always "main frame visible, alt
+   frame hidden", so an animation cut short by the reduced-motion clamp can
+   never leave two frames overlapping. */
+.sprite-frame-alt,
+.cat-legs-b {
+  opacity: 0;
+}
+
+@keyframes spriteBlinkMain {
+  0%   { opacity: 1; }
+  94%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes spriteBlinkAlt {
+  0%   { opacity: 0; }
+  94%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.sprite-blink .sprite-frame-main {
+  animation: spriteBlinkMain 3.6s step-end infinite;
+}
+
+.sprite-blink .sprite-frame-alt {
+  animation: spriteBlinkAlt 3.6s step-end infinite;
+}
+
+/* One-shot hop for sprites (BOT.v2 dock/pet, footer cat). Replay by re-keying. */
+@keyframes spriteHop {
+  0%   { translate: 0 0; }
+  35%  { translate: 0 -10px; }
+  100% { translate: 0 0; }
+}
+
+.sprite-hop {
+  animation: spriteHop 320ms var(--ease-out-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sprite-blink .sprite-frame-main,
+  .sprite-blink .sprite-frame-alt,
+  .sprite-hop {
+    animation: none !important;
+  }
+}
+
+.reduce-motion .sprite-blink .sprite-frame-main,
+.reduce-motion .sprite-blink .sprite-frame-alt,
+.reduce-motion .sprite-hop {
+  animation: none !important;
+}
+
+/* Draggable BOT.v2 (plan 016). Positioned with `translate` from JS. */
+.arcade-pet {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 45; /* above the sticky header (z-40), under the CRT overlay (z-50) */
+  width: 48px;
+  height: 56px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.pet-dragging,
+.pet-dragging * {
+  cursor: grabbing !important;
+  user-select: none !important;
+}
+
+/* Timeline cat (plan 017). The track is as tall as the path; translating it by
+   -100% of its own height moves the cat from the top of the path to the bottom,
+   on the same --spine timeline as the spine, so it rides the spine's tip. */
+.timeline-cat-track {
+  position: absolute;
+  top: 0;
+  left: 20px; /* right edge of the spine: left-4 (16px) + w-1 (4px) */
+  width: 0;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .timeline-cat-track { left: 28px; } /* sm:left-6 (24px) + 4px */
+}
+
+.timeline-cat {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 20px;
+  height: 28px;
+}
+
+/* Sprite is 28x20; rotate it to face down with its feet against the spine */
+.timeline-cat svg {
+  position: absolute;
+  left: -4px;
+  top: 4px;
+  rotate: 90deg;
+}
+
+@keyframes catTrack {
+  from { translate: 0 -100%; }
+  to   { translate: 0 0; }
+}
+
+@keyframes catLegsA {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes catLegsB {
+  0%   { opacity: 0; }
+  50%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+@supports (animation-timeline: view()) {
+  .timeline-cat-track {
+    animation: catTrack 1ms linear both;
+    animation-timeline: --spine;
+    animation-range: entry 0% exit 0%;
+  }
+
+  /* 24 leg cycles over the path: legs move only while the page scrolls */
+  .timeline-cat .cat-legs-a {
+    animation: catLegsA 1ms step-end 24 both;
+    animation-timeline: --spine;
+    animation-range: entry 0% exit 0%;
+  }
+
+  .timeline-cat .cat-legs-b {
+    animation: catLegsB 1ms step-end 24 both;
+    animation-timeline: --spine;
+    animation-range: entry 0% exit 0%;
+  }
+}
+
+/* Save-point crystal: 3px bob in two hard steps */
+@keyframes saveBob {
+  0%   { translate: 0 0; }
+  50%  { translate: 0 -3px; }
+  100% { translate: 0 -3px; }
+}
+
+.save-bob {
+  animation: saveBob 1.2s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-cat-track,
+  .timeline-cat .cat-legs-a,
+  .timeline-cat .cat-legs-b,
+  .save-bob {
+    animation: none !important;
+  }
+}
+
+.reduce-motion .timeline-cat-track,
+.reduce-motion .timeline-cat .cat-legs-a,
+.reduce-motion .timeline-cat .cat-legs-b,
+.reduce-motion .save-bob {
+  animation: none !important;
+}
+
+/* Footer cat "zzz" (plan 018): three letters float up and fade in turn */
+.footer-zzz span {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  animation: footerZ 2.4s steps(4, end) infinite;
+}
+
+.footer-zzz span:nth-child(2) { animation-delay: 0.8s; }
+.footer-zzz span:nth-child(3) { animation-delay: 1.6s; }
+
+@keyframes footerZ {
+  0%   { opacity: 0; translate: 0 0; }
+  20%  { opacity: 1; }
+  100% { opacity: 0; translate: 6px -14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-zzz span { animation: none !important; }
+  .footer-zzz span:first-child { opacity: 1; }
+}
+
+.reduce-motion .footer-zzz span { animation: none !important; }
+.reduce-motion .footer-zzz span:first-child { opacity: 1; }
+
+/* Coin hunt (plan 019) */
+@keyframes coinBob {
+  0%   { translate: 0 0; }
+  50%  { translate: 0 -2px; }
+  100% { translate: 0 -2px; }
+}
+
+.coin-bob {
+  animation: coinBob 1.4s step-end infinite;
+}
+
+@keyframes coinCollect {
+  from { translate: 0 0; opacity: 1; }
+  to   { translate: 0 -18px; opacity: 0; }
+}
+
+.coin-collect {
+  animation: coinCollect 360ms var(--ease-out-strong) forwards;
+}
+
+@keyframes toastIn {
+  from { translate: 0 12px; opacity: 0; }
+  to   { translate: 0 0; opacity: 1; }
+}
+
+.arcade-toast {
+  animation: toastIn 200ms var(--ease-out-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coin-bob,
+  .coin-collect,
+  .arcade-toast {
+    animation: none !important;
+  }
+}
+
+.reduce-motion .coin-bob,
+.reduce-motion .coin-collect,
+.reduce-motion .arcade-toast {
+  animation: none !important;
+}
+
+/* One-shot confirmation pop (copy success). Starts at 0.6, never scale(0). */
+@keyframes confirmPop {
+  0%   { opacity: 0; transform: scale(0.6); }
+  60%  { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-confirm-pop {
+  animation: confirmPop 160ms var(--ease-out-strong);
+}
+
+/* Blinking terminal cursor */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
+}
+
+/* Respect reduced motion (System & User Toggle) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Reveal items are visible immediately; no movement */
+  [data-reveal-item] {
+    opacity: 1 !important;
+    translate: none !important;
+    transition: none !important;
+  }
+
+  .animate-confirm-pop {
+    animation: none;
+  }
+}
+
+/* App-level ANIM:OFF toggle mirrors the system preference for reveals */
+.reduce-motion [data-reveal-item] {
+  opacity: 1 !important;
+  translate: none !important;
+  transition: none !important;
+}
+
+.reduce-motion .animate-confirm-pop {
+  animation: none;
+}
+
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}

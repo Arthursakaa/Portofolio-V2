@@ -1,0 +1,114 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2460 >>
+stream
+BT
+/F2 18 Tf
+50 780 Td
+(I GEDE ARTHUR SAKA DEWANTARA) Tj
+/F1 11 Tf
+0 -18 Td
+(Computer Science Undergraduate | BINUS University) Tj
+/F1 9 Tf
+0 -14 Td
+(Location: Malang, East Java, Indonesia) Tj
+0 -12 Td
+(Email: arthursakaa16@gmail.com | GitHub: github.com/Arthursakaa) Tj
+0 -12 Td
+(LinkedIn: linkedin.com/in/i-gede-arthur-saka-dewantara-143311326) Tj
+/F2 11 Tf
+0 -12 Td
+(--- SUMMARY & OBJECTIVE ---) Tj
+/F1 9 Tf
+0 -13 Td
+(Computer Science student at BINUS University with strong foundations in Full-Stack) Tj
+0 -11 Td
+(web development, backend systems, and modern responsive user interfaces.) Tj
+0 -11 Td
+(Passionate about building intuitive, high-performance web systems and learning models.) Tj
+0 -11 Td
+(Seeking Full-Stack Developer Internship Opportunities \(2026\).) Tj
+/F2 11 Tf
+0 -12 Td
+(--- EDUCATION ---) Tj
+/F1 9 Tf
+0 -13 Td
+(* BINUS University \(2024 - Present\)) Tj
+0 -12 Td
+(  Bachelor of Computer Science \(B.Comp.Sc.\)) Tj
+0 -11 Td
+(  Focus: Full-Stack Web Development, Data Structures, Algorithms, AI Systems) Tj
+/F2 11 Tf
+0 -12 Td
+(--- CORE TECHNICAL SKILLS ---) Tj
+/F1 9 Tf
+0 -13 Td
+(* Languages: TypeScript, JavaScript, Go, PHP, Python, SQL, HTML5/CSS3) Tj
+0 -12 Td
+(* Frontend: React 19, Next.js \(App Router\), Tailwind CSS v4, Responsive Design) Tj
+0 -12 Td
+(* Backend: Laravel 12, Go standard library, Flask, RESTful APIs, WebSockets \(Reverb\)) Tj
+0 -12 Td
+(* Databases & Tools: PostgreSQL, MySQL, SQLite, Git, Vite, Postman, Linux) Tj
+/F2 11 Tf
+0 -12 Td
+(--- NOTABLE PROJECTS ---) Tj
+/F1 9 Tf
+0 -13 Td
+(1. FitnessVals Ecosystem \(2026\)) Tj
+0 -12 Td
+(   - Hybrid gym & health management architecture combining Laravel 12 & Go 1.25) Tj
+0 -11 Td
+(   - Real-time client-server communication using Laravel Reverb WebSockets) Tj
+0 -11 Td
+(   - Responsive UI built with Tailwind CSS v4 and Vite 7) Tj
+0 -8 Td
+(2. EduBot: Learning Style Analyzer \(2025\)) Tj
+0 -12 Td
+(   - Supervised ML classification model diagnosing student VAK learning modalities) Tj
+0 -11 Td
+(   - Flask API server delivering real-time inferences with an interactive UI) Tj
+0 -8 Td
+(3. De Bouquets & WebCV Platforms \(2024 - 2025\)) Tj
+0 -12 Td
+(   - Interactive storefronts and responsive portfolio platforms) Tj
+/F2 11 Tf
+0 -12 Td
+(--- STATUS & AVAILABILITY ---) Tj
+/F1 9 Tf
+0 -13 Td
+(* Status: Open for Full-Stack Developer Internship Opportunities \(2026\)) Tj
+0 -12 Td
+(* Note: Official formatted PDF will be updated as new academic milestones are achieved.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000002762 00000 n 
+0000002832 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2907
+%%EOF
