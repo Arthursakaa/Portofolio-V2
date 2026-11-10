@@ -209,7 +209,7 @@ export function ArcadeHintsModal({ isOpen, onClose, soundEnabled }: ArcadeHintsM
               Gunakan terminal di bawah ini untuk eksplorasi cepat seperti engineer profesional:
             </p>
             <div className="flex flex-wrap gap-1.5 font-mono text-[11px]">
-              {["help", "about", "projects", "skills", "cv", "email", "coins", "neko", "clear"].map((c) => (
+              {["help", "about", "projects", "skills", "certs", "cv", "email", "coins", "neko", "clear"].map((c) => (
                 <code
                   key={c}
                   className="bg-[#fffdf9] border border-[#2b2723] px-2 py-0.5 shadow-[1px_1px_0_0_#2b2723]"

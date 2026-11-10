@@ -99,7 +99,7 @@ export function ProjectVisualBanner({ projectId }: { projectId: string }) {
           <rect x="20" y="16" width="440" height="168" fill="#fffdf9" stroke="#2b2723" strokeWidth="3" />
           <rect x="20" y="16" width="440" height="24" fill="#2563eb" />
           <text x="34" y="32" fill="#fffdf9" fontFamily="monospace" fontSize="10" fontWeight="bold">
-            EDUBOT // ML LEARNING STYLE DIAGNOSTIC (PYTHON + SCIKIT-LEARN)
+            EDUBOT // VAK ANALYZER (EXPRESS.JS + MYSQL + FLASK ML)
           </text>
 
           {/* Left: AI Bot / Neural Classifier */}

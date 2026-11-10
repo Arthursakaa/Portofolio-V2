@@ -164,4 +164,21 @@ export function PixelDocumentIcon({ size = 14, className = "", ...props }: IconP
   );
 }
 
+export function PixelAwardIcon({ size = 14, className = "", ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+      className={`shrink-0 ${className}`}
+      {...props}
+    >
+      <path d="M5 1h6v2h2v4h-2v2H9v2h2v4H9v-2H7v2H5v-4h2V9H5V7H3V3h2V1zm1 2v4h4V3H6zm1 1h2v2H7V4z" />
+    </svg>
+  );
+}
+
+
 

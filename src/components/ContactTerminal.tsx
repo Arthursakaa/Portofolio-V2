@@ -23,10 +23,10 @@ interface LogLine {
   boot?: boolean;
 }
 
-const QUICK_COMMANDS = ["help", "about", "projects", "skills", "cv", "email", "clear"] as const;
+const QUICK_COMMANDS = ["help", "about", "projects", "skills", "certs", "cv", "email", "clear"] as const;
 
 export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
-  const { profile, projects, skills } = portfolioData;
+  const { profile, projects, skills, certificates } = portfolioData;
   const [copied, setCopied] = useState(false);
   // Increments on every copy so the confirmation pop replays even while `copied` is already true
   const [copyTick, setCopyTick] = useState(0);
@@ -72,6 +72,7 @@ export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
           "  about     — Display developer background & summary",
           "  projects  — List featured software projects",
           "  skills    — Inspect technical stack & tools",
+          "  certs     — List verified licenses & certificates",
           "  cv        — Display Curriculum Vitae / Resume info & status",
           "  email     — Copy email address to clipboard",
           "  coins     — Track the hidden coin hunt",
@@ -91,6 +92,12 @@ export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
           (s) => `${s.name}: ${s.items.map((item) => item.name).join(" • ")}`
         );
         break;
+      case "certs":
+      case "certificates":
+        out = certificates.map(
+          (c, i) => `[0${i + 1}] ${c.title} — ${c.issuer} (${c.issueDate})`
+        );
+        break;
       case "cv":
       case "resume":
         out = [
@@ -100,7 +107,7 @@ export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
           `  Location  : ${profile.location}`,
           `  Status    : Open for Full-Stack Developer Internship (2026)`,
           `  File      : ${profile.resumeUrl}`,
-          "  Tip       : Click [Download CV] in Hero or visit Section 05 to download.",
+          "  Tip       : Click [Download CV] in Hero or visit Section 06 to download.",
         ];
         break;
       case "email":
@@ -160,7 +167,7 @@ export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
           <div className="flex items-center gap-2 mb-1">
             <span className="w-2.5 h-2.5 bg-[#8b5cf6] inline-block border border-[#2b2723]" />
             <span className="font-pixel text-[10px] text-[#575049]">
-              06 // CONTACT &amp; CONNECT
+              07 // CONTACT &amp; CONNECT
             </span>
           </div>
           <h2 className="font-pixel text-xl sm:text-2xl text-[#2b2723] pixel-wipe">

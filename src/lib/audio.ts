@@ -1,7 +1,8 @@
 // Lightweight 8-bit retro sound synthesizer using Web Audio API (zero external assets needed)
 class RetroAudio {
   private ctx: AudioContext | null = null;
-  private enabled: boolean = false;
+  private enabled: boolean = true;
+  private hasGestured: boolean = false;
   private lastSoundTime: number = 0;
 
   private initCtx() {
@@ -9,16 +10,30 @@ class RetroAudio {
       const AudioCtx =
         window.AudioContext ||
         (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      this.ctx = new AudioCtx();
+      if (AudioCtx) {
+        this.ctx = new AudioCtx();
+      }
     }
     if (this.ctx && this.ctx.state === "suspended") {
       this.ctx.resume().catch(() => {});
     }
   }
 
+  /**
+   * Unlocks the browser AudioContext on the user's first pointer/key gesture
+   * so default-ON SFX works immediately without autoplay console warnings.
+   */
+  public unlock() {
+    this.hasGestured = true;
+    if (this.enabled) {
+      this.initCtx();
+    }
+  }
+
   public setEnabled(val: boolean) {
     this.enabled = val;
     if (val) {
+      this.hasGestured = true;
       this.initCtx();
     }
   }
@@ -29,6 +44,14 @@ class RetroAudio {
 
   private canPlay(minIntervalMs: number = 25): boolean {
     if (!this.enabled) return false;
+    // Skip passive hover blips before any click/keydown so browsers don't block AudioContext
+    const userActive =
+      this.hasGestured ||
+      (typeof navigator !== "undefined" &&
+        "userActivation" in navigator &&
+        navigator.userActivation.hasBeenActive);
+    if (!userActive) return false;
+
     const now = Date.now();
     if (now - this.lastSoundTime < minIntervalMs) return false;
     this.lastSoundTime = now;

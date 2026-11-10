@@ -8,6 +8,7 @@ import { AboutSection } from "@/components/AboutSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { SkillsInventory } from "@/components/SkillsInventory";
 import { TimelineSection } from "@/components/TimelineSection";
+import { CertificatesSection } from "@/components/CertificatesSection";
 import { ResumeSection } from "@/components/ResumeSection";
 import { ContactTerminal } from "@/components/ContactTerminal";
 import { Footer } from "@/components/Footer";
@@ -29,8 +30,8 @@ const getReducedMotion = () => window.matchMedia(REDUCED_MOTION_QUERY).matches;
 const getServerReducedMotion = () => false;
 
 export default function Home() {
-  const [scanlines, setScanlines] = useState(false);
-  const [soundEnabled, setSoundEnabled] = useState(false);
+  const [scanlines, setScanlines] = useState(true);
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
   const systemReducedMotion = useSyncExternalStore(
     subscribeReducedMotion,
@@ -55,7 +56,14 @@ export default function Home() {
   useEffect(() => {
     if (!soundEnabled) return;
 
+    const handleFirstGesture = () => {
+      retroSound.unlock();
+      document.removeEventListener("pointerdown", handleFirstGesture, { capture: true });
+      document.removeEventListener("keydown", handleFirstGesture, { capture: true });
+    };
+
     const handleGlobalClick = (e: MouseEvent) => {
+      retroSound.unlock();
       const target = (e.target as HTMLElement)?.closest(
         "button, a, input[type='button'], [role='button'], [role='tab'], .pixel-btn"
       );
@@ -66,8 +74,12 @@ export default function Home() {
       retroSound.playSelect();
     };
 
+    document.addEventListener("pointerdown", handleFirstGesture, { capture: true, passive: true });
+    document.addEventListener("keydown", handleFirstGesture, { capture: true, passive: true });
     document.addEventListener("click", handleGlobalClick, { capture: true });
     return () => {
+      document.removeEventListener("pointerdown", handleFirstGesture, { capture: true });
+      document.removeEventListener("keydown", handleFirstGesture, { capture: true });
       document.removeEventListener("click", handleGlobalClick, { capture: true });
     };
   }, [soundEnabled]);
@@ -124,10 +136,13 @@ export default function Home() {
         {/* 04. Experience & Education Timeline */}
         <TimelineSection soundEnabled={soundEnabled} />
 
-        {/* 05. Curriculum Vitae & Official Documentation */}
+        {/* 05. Certifications & Credentials */}
+        <CertificatesSection soundEnabled={soundEnabled} />
+
+        {/* 06. Curriculum Vitae & Official Documentation */}
         <ResumeSection soundEnabled={soundEnabled} />
 
-        {/* 06. Contact & Interactive Terminal */}
+        {/* 07. Contact & Interactive Terminal */}
         <ContactTerminal soundEnabled={soundEnabled} />
       </main>
 

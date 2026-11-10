@@ -27,6 +27,22 @@ export interface TimelineItem {
   type: "Education" | "Experience" | "Milestone";
 }
 
+export interface Certificate {
+  id: string;
+  title: string;
+  issuer: string;
+  issueDate: string;
+  category: string;
+  credentialId?: string;
+  summary?: string;
+  /** Path gambar sertifikat di folder public/certificates/ (misal: "/certificates/nama-file.png") */
+  imageUrl?: string;
+  /** Path dokumen PDF sertifikat di folder public/certificates/ (misal: "/certificates/nama-file.pdf") */
+  pdfUrl?: string;
+  /** Tautan verifikasi kredensial eksternal (misal: Coursera, Dicoding, Credly, HackerRank) */
+  verifyUrl?: string;
+}
+
 export const portfolioData = {
   profile: {
     fullName: "I Gede Arthur Saka Dewantara",
@@ -93,21 +109,30 @@ export const portfolioData = {
     {
       id: "edubot",
       title: "EduBot: Learning Analyzer",
-      category: "AI / Educational Tech",
+      category: "Full-Stack / AI EdTech",
       badge: "AI ENGINE",
       description:
-        "An educational diagnostic platform that classifies students' cognitive learning preferences (VAK model) through a custom supervised machine learning pipeline.",
+        "Full-stack educational platform helping elementary students identify their VAK (Visual, Auditory, Kinesthetic) learning preferences through an interactive quiz, backed by a teacher classroom portal and ML inference API.",
       highlights: [
-        "Trained and evaluated a multi-class classifier using scikit-learn on student behavioral survey datasets",
-        "Designed an engaging diagnostic questionnaire with immediate visual breakdown of learning style tendencies",
-        "Deployed a lightweight Python Flask inference API delivering sub-second model predictions directly to the web client",
+        "Built a decoupled 3-tier architecture: Tailwind CSS & Chart.js client (Vercel), Express.js + MySQL (TiDB Cloud) API, and a Python Flask ML service",
+        "Trained and deployed a scikit-learn classification pipeline serving real-time VAK predictions with visual proportion charts",
+        "Engineered a JWT-authenticated Teacher Portal & classroom management dashboard secured with Zod validation, Helmet, and rate limiting",
       ],
-      stack: ["Python", "scikit-learn", "Flask", "JavaScript", "HTML5/CSS3"],
-      demoUrl: "https://arthursakaa.github.io/Edubot-GayaBelajar/",
+      stack: [
+        "Express.js",
+        "Node.js",
+        "MySQL",
+        "Python",
+        "Flask",
+        "scikit-learn",
+        "Tailwind CSS",
+        "Chart.js",
+      ],
+      demoUrl: "https://edubot-gayabelajar.vercel.app/",
       githubUrl: "https://github.com/Arthursakaa/Edubot-GayaBelajar",
       featured: true,
       status: "Completed",
-      year: "2025",
+      year: "2026",
     },
     {
       id: "debouquets",
@@ -223,4 +248,35 @@ export const portfolioData = {
       type: "Milestone",
     },
   ] as TimelineItem[],
+
+  // Simpan file gambar (.png/.jpg/.webp) atau dokumen (.pdf) di folder public/certificates/
+  // lalu buka komentar atau isi imageUrl / pdfUrl / verifyUrl di bawah ini.
+  certificates: [
+    {
+      id: "cert-fullstack-web",
+      title: "Full-Stack Web Development & REST API Architecture",
+      issuer: "BINUS University / Technical Bootcamp",
+      issueDate: "2025",
+      category: "Full-Stack Engineering",
+      credentialId: "ARS-FSW-2025",
+      summary:
+        "Completed intensive hands-on certification covering relational database modeling, RESTful backend services, authentication workflows, and modern responsive frontend deployment.",
+      // imageUrl: "/certificates/cert-fullstack.png",
+      pdfUrl: "/certificates/cert-fullstack.pdf",
+      verifyUrl: "https://github.com/Arthursakaa",
+    },
+    {
+      id: "cert-machine-learning",
+      title: "Applied Machine Learning & Data Science Foundations",
+      issuer: "AI & Data Science Academy",
+      issueDate: "2025",
+      category: "AI & Machine Learning",
+      credentialId: "ARS-ML-2025",
+      summary:
+        "Mastered supervised classification pipelines, feature engineering, model evaluation metrics, and serving scikit-learn inference endpoints with Python and Flask.",
+      // imageUrl: "/certificates/cert-ml.png",
+      pdfUrl: "/certificates/cert-ml.pdf",
+      verifyUrl: "https://github.com/Arthursakaa/Edubot-GayaBelajar",
+    },
+  ] as Certificate[],
 };

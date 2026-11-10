@@ -24,7 +24,7 @@ export function MiniPixelDev({ soundEnabled, reducedMotion }: MiniPixelDevProps)
     >
       <svg
         viewBox="0 0 54 26"
-        className="w-13 h-6"
+        className="w-12 h-[22px]"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >

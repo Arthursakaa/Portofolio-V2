@@ -34,13 +34,12 @@ html {
   scroll-behavior: smooth;
   overflow-x: clip;
   /* Sticky header must not cover anchor targets. Values = measured header
-     height + ~8px. Header heights: 136.5px <640px (not sticky there),
-     101px 640-1279px, 55px >=1280px. Re-measure if the header layout changes. */
+     height + ~8px. */
   scroll-padding-top: 0;
 }
 
 @media (min-width: 640px) {
-  html { scroll-padding-top: 112px; }
+  html { scroll-padding-top: 102px; }
 }
 
 @media (min-width: 1280px) {
@@ -95,7 +94,8 @@ body {
 }
 
 /* Responsive pressable button (Emil Design Eng: explicit composite properties, scale(0.97) on active, gated hover) */
-.pixel-btn {
+.pixel-btn,
+.pixel-btn-sm {
   border: 2px solid #2b2723;
   box-shadow: 3px 3px 0 0 #2b2723;
   cursor: pointer;
@@ -106,13 +106,21 @@ body {
     border-color 150ms ease;
 }
 
+.pixel-btn-sm {
+  box-shadow: 2px 2px 0 0 #2b2723;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .pixel-btn:hover {
     transform: translate(-1.5px, -1.5px);
   }
+  .pixel-btn-sm:hover {
+    transform: translate(-1px, -1px);
+  }
 }
 
-.pixel-btn:active {
+.pixel-btn:active,
+.pixel-btn-sm:active {
   transform: translate(1.5px, 1.5px) scale(0.97);
 }
 

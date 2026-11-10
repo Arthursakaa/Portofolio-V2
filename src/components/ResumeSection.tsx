@@ -32,7 +32,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2.5 h-2.5 bg-[#2563eb] inline-block border border-[#2b2723]" />
               <span className="font-pixel text-[10px] text-[#575049]">
-                05 // VERIFIED CREDENTIALS
+                06 // VERIFIED CREDENTIALS
               </span>
             </div>
             <h2 className="font-pixel text-xl sm:text-2xl text-[#2b2723] pixel-wipe">

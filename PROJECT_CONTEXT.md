@@ -56,6 +56,7 @@ Dokumen ini dibuat sebagai panduan latar belakang lengkap (*Project Blueprint & 
 ```
 Portofolio/
 ├── public/
+│   ├── certificates/            # Folder tempat menyimpan file gambar (.png/.jpg) & PDF sertifikat
 │   ├── CV_Arthur_Saka.pdf       # File PDF CV aktif (bisa ditimpa sewaktu-waktu)
 │   ├── profileporto.png         # Foto diri Arthur Saka
 │   └── ...                      # Aset statis lainnya
@@ -76,7 +77,8 @@ Portofolio/
 │   │   ├── ProjectVisuals.tsx   # Ilustrasi banner SVG pixel-art untuk proyek & pilar
 │   │   ├── SkillsInventory.tsx  # Inventaris kemampuan teknis (Frontend, Backend, AI, Tools)
 │   │   ├── TimelineSection.tsx  # Checkpoint riwayat pendidikan BINUS CS & pencapaian proyek
-│   │   ├── ResumeSection.tsx    # Section 05: Curriculum Vitae docket & tombol unduh/preview PDF
+│   │   ├── CertificatesSection.tsx # Section 05: Galeri sertifikat & kredensial dengan Retro Lightbox Modal
+│   │   ├── ResumeSection.tsx    # Section 06: Curriculum Vitae docket & tombol unduh/preview PDF
 │   │   ├── ContactTerminal.tsx  # Kontak langsung (copy email, mailto, sosmed) + terminal interaktif shell
 │   │   ├── Footer.tsx           # Footer retro dengan tombol "Back to Top" (sound warp)
 │   │   └── PixelIcons.tsx       # Kumpulan ikon SVG gaya 8-bit murni
@@ -98,6 +100,7 @@ Jika ingin mengubah data diri, tautan, atau isi portofolio, cukup edit berkas `s
 - `projects`: Daftar proyek GitHub unggulan, ringkasan arsitektur, teknologi, dan URL demo.
 - `skills`: Pengelompokan keahlian teknis (Frontend, Backend, AI/ML, Tools).
 - `timeline`: Riwayat pendidikan di BINUS University dan milestone proyek.
+- `certificates`: Daftar sertifikat, lisensi, dan kredensial (mendukung thumbnail gambar, dokumen PDF di `public/certificates/`, serta URL verifikasi online).
 
 ---
 
