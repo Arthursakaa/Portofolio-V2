@@ -6,7 +6,9 @@ export interface Project {
   description: string;
   highlights: string[];
   stack: string[];
+  imageUrl?: string;
   demoUrl?: string;
+  videoUrl?: string;
   githubUrl: string;
   featured?: boolean;
   status: "Completed" | "Active" | "Prototype";
@@ -101,6 +103,7 @@ export const portfolioData = {
         "Built an optimized dashboard interface using Tailwind CSS v4 and Vite, ensuring snappy navigation across mobile and desktop",
       ],
       stack: ["Laravel 12", "Go", "Tailwind CSS v4", "Vite", "WebSockets", "PHP"],
+      videoUrl: "https://youtu.be/tH5LhTrzbOs?si=b_J93EbtoCH1-P8k",
       githubUrl: "https://github.com/Arthursakaa/Web_FitnessVals",
       featured: true,
       status: "Active",
@@ -128,6 +131,7 @@ export const portfolioData = {
         "Tailwind CSS",
         "Chart.js",
       ],
+      imageUrl: "/projects/edubot-preview.jpg",
       demoUrl: "https://edubot-gayabelajar.vercel.app/",
       githubUrl: "https://github.com/Arthursakaa/Edubot-GayaBelajar",
       featured: true,
@@ -147,6 +151,7 @@ export const portfolioData = {
         "Implemented clean server-rendered architecture with Laravel Blade and responsive Tailwind CSS styling",
       ],
       stack: ["Laravel", "PHP", "Blade", "MySQL", "Tailwind CSS"],
+      videoUrl: "https://youtu.be/j-rX8YLNG2Y?si=GQi3cgTZg3OMODU1",
       githubUrl: "https://github.com/Arthursakaa/Web_Debouquets",
       status: "Completed",
       year: "2026",
@@ -250,33 +255,32 @@ export const portfolioData = {
   ] as TimelineItem[],
 
   // Simpan file gambar (.png/.jpg/.webp) atau dokumen (.pdf) di folder public/certificates/
-  // lalu buka komentar atau isi imageUrl / pdfUrl / verifyUrl di bawah ini.
+  // lalu arahkan imageUrl / pdfUrl / verifyUrl di bawah ini.
   certificates: [
     {
-      id: "cert-fullstack-web",
-      title: "Full-Stack Web Development & REST API Architecture",
-      issuer: "BINUS University / Technical Bootcamp",
-      issueDate: "2025",
-      category: "Full-Stack Engineering",
-      credentialId: "ARS-FSW-2025",
+      id: "cert-uiux-specialskill",
+      title: "UI/UX Design — Webinar Completion",
+      issuer: "SpecialSkill Indonesia",
+      issueDate: "Nov 2026",
+      category: "UI/UX Design",
+      credentialId: "0d495ada49fdd782",
       summary:
-        "Completed intensive hands-on certification covering relational database modeling, RESTful backend services, authentication workflows, and modern responsive frontend deployment.",
-      // imageUrl: "/certificates/cert-fullstack.png",
-      pdfUrl: "/certificates/cert-fullstack.pdf",
-      verifyUrl: "https://github.com/Arthursakaa",
+        "Awarded a Certificate of Completion for active participation in the UI/UX Design webinar hosted by SpecialSkill (PT Special Skill Indonesia), reinforcing user-centered interface design principles alongside full-stack web development.",
+      imageUrl: "/certificates/uiux-specialskill.jpg",
+      pdfUrl: "/certificates/uiux-specialskill.pdf",
+      verifyUrl: "https://specialskill.id/certificate/?cert_hash=0d495ada49fdd782",
     },
     {
-      id: "cert-machine-learning",
-      title: "Applied Machine Learning & Data Science Foundations",
-      issuer: "AI & Data Science Academy",
-      issueDate: "2025",
-      category: "AI & Machine Learning",
-      credentialId: "ARS-ML-2025",
+      id: "cert-beelingua-cefr-c12",
+      title: "Professional Office (V2) — English CEFR C1.2",
+      issuer: "BINUS University (Beelingua)",
+      issueDate: "Jul 2026",
+      category: "Language Proficiency",
+      credentialId: "2026-C-xTRdRYUnzr5dO",
       summary:
-        "Mastered supervised classification pipelines, feature engineering, model evaluation metrics, and serving scikit-learn inference endpoints with Python and Flask.",
-      // imageUrl: "/certificates/cert-ml.png",
-      pdfUrl: "/certificates/cert-ml.pdf",
-      verifyUrl: "https://github.com/Arthursakaa/Edubot-GayaBelajar",
+        "Verified certificate from BINUS University's Beelingua digital language learning system for completing English C1.2-level coursework and passing Professional Office (V2) (CEFR C1.2), demonstrating advanced professional English proficiency.",
+      imageUrl: "/certificates/beelingua-cefr-c12.jpg",
+      pdfUrl: "/certificates/beelingua-cefr-c12.pdf",
     },
   ] as Certificate[],
 };

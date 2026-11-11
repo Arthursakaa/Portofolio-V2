@@ -79,8 +79,14 @@ export function CertificatesSection({ soundEnabled }: CertificatesSectionProps) 
           </div>
         </div>
 
-        {/* Certificates Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+        {/* Certificates Grid (centers neatly when 1 certificate, 2-column grid for 2+) */}
+        <div
+          className={
+            certificates.length === 1
+              ? "max-w-2xl mx-auto"
+              : "grid grid-cols-1 md:grid-cols-2 gap-7"
+          }
+        >
           {certificates.map((cert, index) => {
             const hasValidImage = Boolean(cert.imageUrl && !failedImages[cert.id]);
 
@@ -94,14 +100,14 @@ export function CertificatesSection({ soundEnabled }: CertificatesSectionProps) 
                 <article className="h-full bg-[#f4efe6] pixel-border-lg pixel-card-interactive flex flex-col justify-between overflow-hidden">
                   <div>
                     {/* Interactive Certificate Thumbnail / Dossier Preview */}
-                    <div className="group relative aspect-[16/10] w-full border-b-2 border-[#2b2723] bg-[#1e293b] overflow-hidden">
+                    <div className="group relative aspect-[16/11] w-full border-b-2 border-[#2b2723] bg-[#1e293b] overflow-hidden">
                       {hasValidImage ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={cert.imageUrl}
                           alt={cert.title}
                           onError={() => markImageFailed(cert.id)}
-                          className="w-full h-full object-cover transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.02]"
+                          className="w-full h-full object-contain p-2 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.02]"
                         />
                       ) : (
                         /* Styled 8-Bit Certificate Dossier Fallback */

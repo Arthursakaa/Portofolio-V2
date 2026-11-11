@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 /**
  * Custom thematic pixel-retro visual illustrations & interactive system diagrams
@@ -6,7 +7,29 @@ import React from "react";
  * never text-only.
  */
 
-export function ProjectVisualBanner({ projectId }: { projectId: string }) {
+export function ProjectVisualBanner({
+  projectId,
+  imageUrl,
+  title,
+}: {
+  projectId: string;
+  imageUrl?: string;
+  title?: string;
+}) {
+  if (imageUrl) {
+    return (
+      <div className="relative w-full h-full bg-[#edf4fd]">
+        <Image
+          src={imageUrl}
+          alt={title ? `${title} website preview` : `${projectId} website preview`}
+          fill
+          sizes="(max-width: 768px) 100vw, 560px"
+          className="object-contain"
+        />
+      </div>
+    );
+  }
+
   switch (projectId) {
     case "fitnessvals":
       return (

@@ -180,5 +180,22 @@ export function PixelAwardIcon({ size = 14, className = "", ...props }: IconProp
   );
 }
 
+export function PixelPlayIcon({ size = 14, className = "", ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+      className={`shrink-0 ${className}`}
+      {...props}
+    >
+      <path d="M4 2h2v2h2v2h2v1h2v2h-2v1H8v2H6v2H4V2z" />
+    </svg>
+  );
+}
+
+
 
 

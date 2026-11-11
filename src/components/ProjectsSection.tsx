@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { portfolioData } from "@/data/portfolio";
-import { PixelExternalIcon, PixelSparkleIcon, PixelCodeIcon } from "./PixelIcons";
+import { PixelExternalIcon, PixelSparkleIcon, PixelCodeIcon, PixelPlayIcon } from "./PixelIcons";
 import { ProjectVisualBanner } from "./ProjectVisuals";
 import { retroSound } from "@/lib/audio";
 import { HiddenCoin } from "@/components/arcade/HiddenCoin";
@@ -108,7 +108,7 @@ export function ProjectsSection({ soundEnabled }: ProjectsSectionProps) {
               <article className="h-full bg-[#fffdf9] pixel-border-lg pixel-card-interactive flex flex-col justify-between overflow-hidden">
                 <div>
                   {/* Top Visual Preview Banner / Interactive Architecture Toggle */}
-                  <div className="relative h-48 w-full border-b-2 border-[#2b2723] bg-[#1e293b] overflow-hidden">
+                  <div className="relative h-52 sm:h-56 w-full border-b-2 border-[#2b2723] bg-[#1e293b] overflow-hidden">
                     {/* Both layers stay mounted and cross-fade, so rapid toggling retargets instead of hard-cutting */}
                     <div
                       aria-hidden={showArch}
@@ -116,7 +116,11 @@ export function ProjectsSection({ soundEnabled }: ProjectsSectionProps) {
                         showArch ? "opacity-0 blur-[2px] pointer-events-none" : "opacity-100 blur-0"
                       }`}
                     >
-                      <ProjectVisualBanner projectId={project.id} />
+                      <ProjectVisualBanner
+                        projectId={project.id}
+                        imageUrl={project.imageUrl}
+                        title={project.title}
+                      />
                     </div>
 
                     <div
@@ -214,6 +218,20 @@ export function ProjectsSection({ soundEnabled }: ProjectsSectionProps) {
                       >
                         <PixelSparkleIcon size={12} />
                         <span>Live Demo</span>
+                      </a>
+                    ) : null}
+
+                    {project.videoUrl ? (
+                      <a
+                        href={project.videoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Watch project demo video on YouTube"
+                        onClick={() => soundEnabled && retroSound.playPowerUp()}
+                        className="pixel-btn px-3.5 py-2 bg-[#ea580c] text-white font-pixel text-[9px] hover:bg-[#c2410c] inline-flex items-center gap-1.5"
+                      >
+                        <PixelPlayIcon size={12} />
+                        <span>Video Demo</span>
                       </a>
                     ) : null}
 
