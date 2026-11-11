@@ -48,4 +48,4 @@ src/data/portfolio.ts
 ## 📄 Berkas CV & Foto Profil
 
 - **Foto Profil:** `public/profileporto.png`
-- **File CV / Resume:** `public/CV_Arthur_Saka.pdf` (Cukup timpa file ini jika sudah memiliki file CV baru).
+- **File CV / Resume:** `public/CV_I_Gede_Arthur_Saka_Dewantara.pdf` (Cukup timpa file ini jika sudah memiliki file CV baru).

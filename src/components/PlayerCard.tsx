@@ -11,7 +11,7 @@ interface PlayerCardProps {
 }
 
 export function PlayerCard({ soundEnabled }: PlayerCardProps) {
-  const { profile } = portfolioData;
+  const { profile, resume } = portfolioData;
   const [ditherActive, setDitherActive] = useState(true);
   const [imgError, setImgError] = useState(false);
 
@@ -146,7 +146,7 @@ export function PlayerCard({ soundEnabled }: PlayerCardProps) {
         {/* Direct CV Download Pill */}
         <a
           href={profile.resumeUrl}
-          download="CV_Arthur_Saka.pdf"
+          download={resume.fileName}
           onClick={() => soundEnabled && retroSound.playCoin()}
           suppressHydrationWarning
           className="pixel-btn w-full py-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-pixel text-[9px] tracking-wider flex items-center justify-center gap-1.5 shadow-[2px_2px_0_0_#2b2723]"

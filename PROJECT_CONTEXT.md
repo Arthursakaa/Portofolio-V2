@@ -17,7 +17,7 @@ Dokumen ini dibuat sebagai panduan latar belakang lengkap (*Project Blueprint & 
 - **LinkedIn:** `https://www.linkedin.com/in/i-gede-arthur-saka-dewantara-143311326`
 - **GitHub:** `https://github.com/Arthursakaa` (Repositori: `Web_FitnessVals`, `Edubot-GayaBelajar`, `Web_Debouquets`, `WebCV_PPT`)
 - **Foto Profil:** `public/profileporto.png`
-- **Berkas CV / Resume:** Terhubung langsung ke `public/CV_Arthur_Saka.pdf`
+- **Berkas CV / Resume:** Terhubung langsung ke `public/CV_I_Gede_Arthur_Saka_Dewantara.pdf`
 
 ---
 
@@ -56,9 +56,9 @@ Dokumen ini dibuat sebagai panduan latar belakang lengkap (*Project Blueprint & 
 ```
 Portofolio/
 ├── public/
-│   ├── certificates/            # Folder tempat menyimpan file gambar (.png/.jpg) & PDF sertifikat
-│   ├── CV_Arthur_Saka.pdf       # File PDF CV aktif (bisa ditimpa sewaktu-waktu)
-│   ├── profileporto.png         # Foto diri Arthur Saka
+│   ├── certificates/                        # Folder tempat menyimpan file gambar (.png/.jpg) & PDF sertifikat
+│   ├── CV_I_Gede_Arthur_Saka_Dewantara.pdf  # File PDF CV aktif (bisa ditimpa sewaktu-waktu)
+│   ├── profileporto.png                     # Foto diri Arthur Saka
 │   └── ...                      # Aset statis lainnya
 ├── src/
 │   ├── app/
@@ -124,6 +124,6 @@ Sistem SFX memiliki 8 preset suara:
 1. **JANGAN gunakan Google Fonts via CDN:** Font sudah di-*bundle* secara lokal di `src/fonts/` demi performa dan keandalan saat offline/build.
 2. **JANGAN menghapus flag `--webpack`:** Turbopack Next.js 16 memiliki bug permission pada direktori OneDrive di Windows.
 3. **Pertahankan `suppressHydrationWarning`:** Dipertahankan pada elemen interaktif (`button`, `input`, `html`, `body`) guna menghindari error hidrasi akibat ekstensi browser pengguna (seperti password manager / theme injector).
-4. **Pembaruan CV:** Jika Arthur sudah memiliki CV final baru, cukup letakkan file PDF tersebut di `public/CV_Arthur_Saka.pdf`. Seluruh tombol download di website akan otomatis mengarah ke file baru tersebut tanpa perlu menyentuh baris kode apa pun.
+4. **Pembaruan CV:** Jika Arthur sudah memiliki CV final baru, cukup letakkan file PDF tersebut di `public/CV_I_Gede_Arthur_Saka_Dewantara.pdf`. Seluruh tombol download di website akan otomatis mengarah ke file baru tersebut tanpa perlu menyentuh baris kode apa pun.
 5. **Keterbacaan Teks:** Font pixel (`font-pixel`) hanya digunakan untuk heading, badge, label menu, dan tombol. Teks bacaan panjang harus tetap menggunakan font sans-serif agar ramah recruiter.
 

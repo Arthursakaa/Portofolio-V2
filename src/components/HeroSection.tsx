@@ -14,7 +14,7 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ soundEnabled }: HeroSectionProps) {
-  const { profile } = portfolioData;
+  const { profile, resume } = portfolioData;
 
   return (
     <section className="relative py-12 md:py-20 border-b-2 border-[#2b2723] overflow-hidden">
@@ -92,7 +92,7 @@ export function HeroSection({ soundEnabled }: HeroSectionProps) {
 
               <a
                 href={profile.resumeUrl}
-                download="CV_Arthur_Saka.pdf"
+                download={resume.fileName}
                 onClick={() => soundEnabled && retroSound.playCoin()}
                 className="pixel-btn px-4 py-3 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-pixel text-xs tracking-wider inline-flex items-center gap-2"
                 title="Download Arthur Saka's Curriculum Vitae (PDF)"

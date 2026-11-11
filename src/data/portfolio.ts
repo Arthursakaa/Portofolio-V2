@@ -81,19 +81,19 @@ export const portfolioData = {
       linkedin: "https://www.linkedin.com/in/i-gede-arthur-saka-dewantara-143311326",
       email: "arthursakaa16@gmail.com",
     },
-    resumeUrl: "/CV_Arthur_Saka.pdf",
+    resumeUrl: "/CV_I_Gede_Arthur_Saka_Dewantara.pdf",
     photo: "/profileporto.png",
   },
 
   resume: {
-    fileName: "CV_Arthur_Saka.pdf",
-    fileUrl: "/CV_Arthur_Saka.pdf",
+    fileName: "CV_I_Gede_Arthur_Saka_Dewantara.pdf",
+    fileUrl: "/CV_I_Gede_Arthur_Saka_Dewantara.pdf",
     title: "Curriculum Vitae",
     subtitle: "Full-Stack Developer Intern",
     lastUpdated: "2026",
     status: "Available for Download",
     format: "PDF (Print & Machine Readable)",
-    note: "Simpan file PDF Anda di folder 'public/CV_Arthur_Saka.pdf' untuk memperbarui CV kapan saja tanpa perlu mengubah kode.",
+    note: "Simpan file PDF Anda di folder 'public/CV_I_Gede_Arthur_Saka_Dewantara.pdf' untuk memperbarui CV kapan saja tanpa perlu mengubah kode.",
   },
 
   projects: [

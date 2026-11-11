@@ -157,7 +157,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
                 </div>
 
                 <div>
-                  <h4 className="font-pixel text-xs text-[#2b2723]">
+                  <h4 className="font-pixel text-[10px] sm:text-[11px] text-[#2b2723] leading-relaxed break-all">
                     {resume.fileName}
                   </h4>
                   <p className="font-vt text-base text-[#575049] mt-0.5">
