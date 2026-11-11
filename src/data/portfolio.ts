@@ -1,3 +1,9 @@
+export interface ProjectImage {
+  src: string;
+  label: string;
+  bg?: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -7,6 +13,7 @@ export interface Project {
   highlights: string[];
   stack: string[];
   imageUrl?: string;
+  images?: ProjectImage[];
   demoUrl?: string;
   videoUrl?: string;
   githubUrl: string;
@@ -103,6 +110,23 @@ export const portfolioData = {
         "Built an optimized dashboard interface using Tailwind CSS v4 and Vite, ensuring snappy navigation across mobile and desktop",
       ],
       stack: ["Laravel 12", "Go", "Tailwind CSS v4", "Vite", "WebSockets", "PHP"],
+      images: [
+        {
+          src: "/projects/fitnessvals-hero.jpg",
+          label: "Landing Page",
+          bg: "#18181b",
+        },
+        {
+          src: "/projects/fitnessvals-member.jpg",
+          label: "Member Dashboard",
+          bg: "#f8fafc",
+        },
+        {
+          src: "/projects/fitnessvals-admin.png",
+          label: "Admin Console",
+          bg: "#f8fafc",
+        },
+      ],
       videoUrl: "https://youtu.be/tH5LhTrzbOs?si=b_J93EbtoCH1-P8k",
       githubUrl: "https://github.com/Arthursakaa/Web_FitnessVals",
       featured: true,
@@ -151,6 +175,23 @@ export const portfolioData = {
         "Implemented clean server-rendered architecture with Laravel Blade and responsive Tailwind CSS styling",
       ],
       stack: ["Laravel", "PHP", "Blade", "MySQL", "Tailwind CSS"],
+      images: [
+        {
+          src: "/projects/debouquets-hero.jpg",
+          label: "Storefront",
+          bg: "#fffdf9",
+        },
+        {
+          src: "/projects/debouquets-customer.png",
+          label: "Customer Portal",
+          bg: "#f3efe4",
+        },
+        {
+          src: "/projects/debouquets-admin.png",
+          label: "Admin Panel",
+          bg: "#f3efe4",
+        },
+      ],
       videoUrl: "https://youtu.be/j-rX8YLNG2Y?si=GQi3cgTZg3OMODU1",
       githubUrl: "https://github.com/Arthursakaa/Web_Debouquets",
       status: "Completed",
@@ -221,7 +262,7 @@ export const portfolioData = {
 
   timeline: [
     {
-      period: "2021 - 2023",
+      period: "2021 - 2024",
       role: "High School Diploma — Science & Mathematics (MIPA)",
       organization: "SMAK Kesuma Mataram",
       description:

@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "skills": {
+    "copy-editing": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/copy-editing/SKILL.md",
+      "computedHash": "faf2d2cb156cdebe9b7ad16df2d25e42494e6069b33f237f5cdd24b04853636b"
+    },
+    "copywriting": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/copywriting/SKILL.md",
+      "computedHash": "b948ac03ec661626b8fc198786ecf761a97e0dacf626cb90d3b5016e9e3baf2f"
+    },
+    "resume-ats-optimizer": {
+      "source": "Paramchoudhary/ResumeSkills",
+      "sourceType": "github",
+      "skillPath": "skills/resume-ats-optimizer/SKILL.md",
+      "computedHash": "2f5a3267a0a7c1e63ebf22575e46556992ec821ead006f85122fa2c0960aa3e7"
+    },
+    "resume-bullet-writer": {
+      "source": "Paramchoudhary/ResumeSkills",
+      "sourceType": "github",
+      "skillPath": "skills/resume-bullet-writer/SKILL.md",
+      "computedHash": "51e277dea0f69a04de6a66b89797f3c84cf62c8d62370c2d144692e3f86c7d3b"
+    },
+    "resume-tailor": {
+      "source": "Paramchoudhary/ResumeSkills",
+      "sourceType": "github",
+      "skillPath": "skills/resume-tailor/SKILL.md",
+      "computedHash": "6a492f7567cbb69e488b09dd35d34851d22f4a3a97f2f7223313c1f4aaa88b2b"
+    }
+  }
+}

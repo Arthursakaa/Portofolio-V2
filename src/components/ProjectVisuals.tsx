@@ -10,15 +10,20 @@ import Image from "next/image";
 export function ProjectVisualBanner({
   projectId,
   imageUrl,
+  imageBg = "#edf4fd",
   title,
 }: {
   projectId: string;
   imageUrl?: string;
+  imageBg?: string;
   title?: string;
 }) {
   if (imageUrl) {
     return (
-      <div className="relative w-full h-full bg-[#edf4fd]">
+      <div
+        className="relative w-full h-full"
+        style={{ backgroundColor: imageBg }}
+      >
         <Image
           src={imageUrl}
           alt={title ? `${title} website preview` : `${projectId} website preview`}
