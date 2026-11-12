@@ -41,7 +41,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
           </div>
 
           <p className="font-mono text-xs text-[#575049] max-w-sm">
-            Download formal resume and technical documentation for Full-Stack Developer internship evaluation and recruiter review.
+            Download formal resume and documentation for Software Engineering, Full-Stack, Frontend, Backend, or AI internship review.
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
                   </div>
                   <div>
                     <span className="font-pixel text-[8px] text-[#575049] block">AVAILABILITY</span>
-                    <span className="font-bold text-[#047857]">Open for Full-Stack Intern (2026)</span>
+                    <span className="font-bold text-[#047857]">Open to Tech Internships (2026)</span>
                   </div>
                 </div>
               </div>
@@ -161,7 +161,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
                     {resume.fileName}
                   </h4>
                   <p className="font-vt text-base text-[#575049] mt-0.5">
-                    Updated for 2026 Full-Stack Intern Applications
+                    Updated for 2026 Software &amp; Web/AI Internships
                   </p>
                 </div>
 

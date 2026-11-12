@@ -80,7 +80,7 @@ export function AboutSection({ soundEnabled }: AboutSectionProps) {
             </h2>
           </div>
           <p className="font-mono text-xs text-[#575049] max-w-md">
-            Clear overview of my technical specialization, core engineering pillars, and target internship roles.
+            Overview of my core engineering skills across Full-Stack, Frontend, Backend, and AI — ready for internships where these technologies fit.
           </p>
         </div>
 

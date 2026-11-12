@@ -121,7 +121,7 @@ export function PlayerCard({ soundEnabled }: PlayerCardProps) {
           </div>
           <div className="flex justify-between items-center text-[11px]">
             <span className="font-pixel text-[8px] text-[#575049]">SPECIALTY</span>
-            <span>Full-Stack &amp; AI</span>
+            <span>Web, Backend &amp; AI</span>
           </div>
           <div className="flex justify-between items-center text-[11px]">
             <span className="font-pixel text-[8px] text-[#575049]">LOCATION</span>
@@ -137,10 +137,10 @@ export function PlayerCard({ soundEnabled }: PlayerCardProps) {
               <span className="relative inline-flex w-2 h-2 bg-[#10b981]" />
             </span>
             <span className="font-pixel text-[8px] text-[#047857]">
-              OPEN FOR FULL-STACK INTERNSHIP
+              OPEN TO TECH INTERNSHIPS
             </span>
           </div>
-          <span className="text-[10px] font-bold text-[#047857]">AVAILABLE</span>
+          <span className="text-[10px] font-bold text-[#047857]">2026</span>
         </div>
 
         {/* Direct CV Download Pill */}

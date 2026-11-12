@@ -105,7 +105,7 @@ export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
           `  Candidate : ${profile.fullName}`,
           `  Degree    : B.Comp.Sc. in ${profile.major} (${profile.guild})`,
           `  Location  : ${profile.location}`,
-          `  Status    : Open for Full-Stack Developer Internship (2026)`,
+          `  Status    : ${profile.status}`,
           `  File      : ${profile.resumeUrl}`,
           "  Tip       : Click [Download CV] in Hero or visit Section 06 to download.",
         ];
@@ -180,13 +180,13 @@ export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
           <div data-reveal-item={0} className="lg:col-span-5 bg-[#f4efe6] pixel-border-lg p-6 space-y-5">
             <div>
               <span className="font-pixel text-[9px] text-[#047857] bg-[#10b981]/20 border border-[#047857] px-2 py-0.5 inline-block mb-2">
-                OPEN FOR FULL-STACK INTERNSHIP
+                OPEN TO TECH INTERNSHIPS (2026)
               </span>
               <h3 className="font-pixel text-base text-[#2b2723]">
                 Direct Contact Channels
               </h3>
               <p className="text-sm text-[#575049] mt-2 leading-relaxed">
-                Interested in discussing Full-Stack Developer internships, production web projects, or engineering collaborations? Reach out directly below.
+                Seeking 2026 internship opportunities across Software Engineering, Full-Stack, Frontend, Backend, or Applied AI teams. Reach out directly below.
               </p>
             </div>
 

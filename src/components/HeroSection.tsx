@@ -29,14 +29,14 @@ export function HeroSection({ soundEnabled }: HeroSectionProps) {
             <div className="inline-flex items-center gap-2 bg-[#fffdf9] border-2 border-[#2b2723] px-3 py-1.5 shadow-[2px_2px_0_0_#2b2723] stagger-enter">
               <span className="w-2.5 h-2.5 bg-[#10b981] border border-[#2b2723] inline-block" />
               <span className="font-pixel text-[9px] sm:text-[10px] text-[#2b2723] tracking-wider">
-                FULL-STACK DEVELOPER PORTFOLIO
+                SOFTWARE &amp; WEB DEVELOPER PORTFOLIO
               </span>
             </div>
 
             {/* Main Name Heading with Pixel Font */}
             <div className="space-y-2 stagger-enter stagger-delay-1">
               <p className="font-pixel text-xs sm:text-sm text-[#ea580c] tracking-widest">
-                FULL-STACK &amp; AI DEVELOPER
+                SOFTWARE • WEB • AI DEVELOPER
               </p>
               <h1 className="font-pixel text-2xl sm:text-3xl md:text-4xl text-[#2b2723] leading-snug tracking-tight drop-shadow-[2px_2px_0_#fffdf9]">
                 {profile.fullName}
@@ -52,29 +52,29 @@ export function HeroSection({ soundEnabled }: HeroSectionProps) {
             </p>
 
             {/* Quick Recruiter Highlights */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 max-w-xl stagger-enter stagger-delay-3">
-              <div className="bg-[#fffdf9] border-2 border-[#2b2723] p-2.5 shadow-[2px_2px_0_0_#2b2723]">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 max-w-2xl stagger-enter stagger-delay-3">
+              <div className="bg-[#fffdf9] border-2 border-[#2b2723] px-2.5 py-2 shadow-[2px_2px_0_0_#2b2723]">
                 <p className="font-pixel text-[8px] text-[#575049]">UNIVERSITY</p>
-                <p className="font-bold text-xs text-[#2b2723] truncate mt-1">
+                <p className="font-bold text-[11px] sm:text-xs text-[#2b2723] leading-tight mt-1">
                   BINUS University
                 </p>
               </div>
-              <div className="bg-[#fffdf9] border-2 border-[#2b2723] p-2.5 shadow-[2px_2px_0_0_#2b2723]">
+              <div className="bg-[#fffdf9] border-2 border-[#2b2723] px-2.5 py-2 shadow-[2px_2px_0_0_#2b2723]">
                 <p className="font-pixel text-[8px] text-[#575049]">MAJOR</p>
-                <p className="font-bold text-xs text-[#2b2723] truncate mt-1">
+                <p className="font-bold text-[11px] sm:text-xs text-[#2b2723] leading-tight mt-1">
                   Computer Science
                 </p>
               </div>
-              <div className="bg-[#fffdf9] border-2 border-[#2b2723] p-2.5 shadow-[2px_2px_0_0_#2b2723]">
+              <div className="bg-[#fffdf9] border-2 border-[#2b2723] px-2.5 py-2 shadow-[2px_2px_0_0_#2b2723]">
                 <p className="font-pixel text-[8px] text-[#575049]">CORE STACK</p>
-                <p className="font-bold text-xs text-[#2b2723] truncate mt-1">
-                  Next.js • Laravel • Go
+                <p className="font-bold text-[11px] sm:text-xs text-[#2b2723] leading-tight mt-1">
+                  Next.js · Laravel · Go
                 </p>
               </div>
-              <div className="bg-[#fffdf9] border-2 border-[#2b2723] p-2.5 shadow-[2px_2px_0_0_#2b2723]">
+              <div className="bg-[#fffdf9] border-2 border-[#2b2723] px-2.5 py-2 shadow-[2px_2px_0_0_#2b2723]">
                 <p className="font-pixel text-[8px] text-[#575049]">STATUS</p>
-                <p className="font-bold text-xs text-[#047857] truncate mt-1">
-                  Full-Stack Intern
+                <p className="font-bold text-[11px] sm:text-xs text-[#047857] leading-tight mt-1">
+                  Open to Internships
                 </p>
               </div>
             </div>
