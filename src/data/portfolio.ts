@@ -253,8 +253,8 @@ export const portfolioData = {
       slot: "SLOT 04 // ARSENAL",
       items: [
         { name: "Git & GitHub", tag: "VCS", iconKey: "git" },
-        { name: "Docker", tag: "DevOps", iconKey: "docker" },
-        { name: "Linux / Terminal", tag: "Environment", iconKey: "terminal" },
+        { name: "Postman", tag: "API Test", iconKey: "postman" },
+        { name: "Antigravity", tag: "AI IDE", iconKey: "antigravity" },
         { name: "Vercel / Cloud", tag: "Deploy", iconKey: "cloud" },
       ],
     },
