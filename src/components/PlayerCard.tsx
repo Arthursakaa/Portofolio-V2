@@ -12,7 +12,7 @@ interface PlayerCardProps {
 
 export function PlayerCard({ soundEnabled }: PlayerCardProps) {
   const { profile, resume } = portfolioData;
-  const [ditherActive, setDitherActive] = useState(true);
+  const [ditherActive, setDitherActive] = useState(false);
   const [imgError, setImgError] = useState(false);
 
   return (
@@ -52,8 +52,10 @@ export function PlayerCard({ soundEnabled }: PlayerCardProps) {
                 onError={() => setImgError(true)}
                 priority
               />
-              {/* Scanline subtle overlay inside card */}
-              <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(0,0,0,0)_50%,rgba(0,0,0,0.12)_50%)] bg-[length:100%_4px] opacity-40 group-hover:opacity-10 transition-opacity duration-200" />
+              {/* Scanline subtle overlay inside card (only when retro filter is active) */}
+              {ditherActive ? (
+                <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(0,0,0,0)_50%,rgba(0,0,0,0.12)_50%)] bg-[length:100%_4px] opacity-40 group-hover:opacity-10 transition-opacity duration-200" />
+              ) : null}
             </div>
           ) : (
             /* Fallback Retro Pixel Avatar in CSS if profile image hasn't been uploaded yet */
@@ -98,9 +100,11 @@ export function PlayerCard({ soundEnabled }: PlayerCardProps) {
           </div>
         </div>
 
-        {/* Hover Cue */}
+        {/* Hover / Filter Cue */}
         <p className="text-center font-vt text-sm text-[#575049] mt-1.5 tracking-wider">
-          Hover photo to view original • Click button to lock
+          {ditherActive
+            ? "Hover photo to view original • Click button to lock"
+            : "Original photo • Click button for retro filter"}
         </p>
       </div>
 

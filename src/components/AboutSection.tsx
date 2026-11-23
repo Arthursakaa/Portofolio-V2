@@ -30,7 +30,7 @@ const PILLARS = [
   {
     id: "ai" as const,
     title: "AI & Applied Machine Learning",
-    subtitle: "Python • scikit-learn • TensorFlow • Flask",
+    subtitle: "Python • scikit-learn • Pandas & NumPy • Flask",
     description:
       "Training supervised classification models and integrating intelligent inference endpoints directly into user-facing web products.",
     deliverables: ["Predictive Models", "ML API Integration", "Data Preprocessing"],

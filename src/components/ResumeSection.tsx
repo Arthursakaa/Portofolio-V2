@@ -87,7 +87,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
                   EXECUTIVE SUMMARY
                 </p>
                 <p>
-                  Computer Science undergraduate at BINUS University based in Malang, Indonesia. Focused on full-stack web engineering, high-throughput microservices, and applied machine learning integration.
+                  Computer Science undergraduate at BINUS University @Malang (GPA: 3.34/4.00). Focused on Full-Stack Web Development—building end-to-end interfaces, REST APIs, WebSocket services, relational databases, and applied Python ML integrations.
                 </p>
                 <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#ded5c5] text-[11px]">
                   <div>
@@ -112,7 +112,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
                       <PixelCheckIcon size={12} />
                     </span>
                     <span>
-                      <strong>Full-Stack Architecture:</strong> Laravel 12 domain logic, Go 1.25 high-throughput services, and reactive Next.js 16/React 19 interfaces.
+                      <strong>Full-Stack Architecture:</strong> Laravel 12 &amp; Eloquent, Go 1.25 (Gin/GORM) REST APIs, Express.js, and Next.js / React interfaces.
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
@@ -120,7 +120,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
                       <PixelCheckIcon size={12} />
                     </span>
                     <span>
-                      <strong>Real-Time Systems:</strong> Bi-directional communication using Laravel Reverb WebSockets &amp; event broadcasting.
+                      <strong>Real-Time &amp; Data Systems:</strong> Laravel Reverb WebSocket broadcasting alongside MySQL, PostgreSQL, and SQLite relational schemas.
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
@@ -128,7 +128,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
                       <PixelCheckIcon size={12} />
                     </span>
                     <span>
-                      <strong>Machine Learning Integration:</strong> Python, scikit-learn, and Flask inference endpoints for educational diagnostic models.
+                      <strong>Machine Learning Integration:</strong> Python, scikit-learn, Pandas, NumPy, and Flask inference services with validation &amp; fallback handling.
                     </span>
                   </li>
                 </ul>

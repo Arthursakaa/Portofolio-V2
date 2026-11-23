@@ -205,7 +205,7 @@ export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
                   rel="noopener noreferrer"
                   className="font-bold text-xs text-[#2563eb] hover:underline mt-0.5 inline-block break-all"
                 >
-                  linkedin.com/in/i-gede-arthur-saka-dewantara
+                  linkedin.com/in/arthur-saka-16d
                 </a>
               </div>
               <div className="pt-2 border-t border-[#2b2723]/15">

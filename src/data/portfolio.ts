@@ -78,7 +78,7 @@ export const portfolioData = {
     socials: {
       github: "https://github.com/Arthursakaa",
       githubRepos: "https://github.com/Arthursakaa?tab=repositories",
-      linkedin: "https://www.linkedin.com/in/i-gede-arthur-saka-dewantara-143311326",
+      linkedin: "https://www.linkedin.com/in/arthur-saka-16d",
       email: "arthursakaa16@gmail.com",
     },
     resumeUrl: "/CV_I_Gede_Arthur_Saka_Dewantara.pdf",
@@ -103,13 +103,13 @@ export const portfolioData = {
       category: "Full-Stack / AI Health",
       badge: "FEATURED QUEST",
       description:
-        "A full-stack fitness management ecosystem built with a dual-backend architecture—combining Laravel for rich business domains with Go for real-time telemetry and high-throughput metrics.",
+        "An end-to-end gym management and health tracking platform built with a dual-backend architecture—pairing Laravel 12 for web workflows and WebSocket broadcasting with a Go 1.25 (Gin, GORM) REST microservice.",
       highlights: [
-        "Designed dual-service architecture: Laravel 12 handles user authentication and membership domains, while Go 1.25 processes high-frequency workout telemetry",
-        "Implemented instant live event broadcasting and notification feeds powered by Laravel Reverb WebSockets",
-        "Built an optimized dashboard interface using Tailwind CSS v4 and Vite, ensuring snappy navigation across mobile and desktop",
+        "Built dual-backend architecture pairing Laravel 12 (Blade, Tailwind CSS v4, Vite) and a Go 1.25 (Gin, GORM) service backed by a 23-migration MySQL schema",
+        "Engineered 27 Go REST endpoints with JWT auth, a rule-based meal recommendation engine, and a Mifflin-St Jeor BMI/BMR/TDEE calculator",
+        "Synced live gym class capacity across clients using SQL transaction booking guards and Laravel Reverb WebSockets (ClassBooked events)",
       ],
-      stack: ["Laravel 12", "Go", "Tailwind CSS v4", "Vite", "WebSockets", "PHP"],
+      stack: ["Laravel 12", "Go (Gin)", "GORM", "MySQL", "WebSockets", "Tailwind CSS v4", "Vite"],
       images: [
         {
           src: "/projects/fitnessvals-hero.jpg",
@@ -139,11 +139,11 @@ export const portfolioData = {
       category: "Full-Stack / AI EdTech",
       badge: "AI ENGINE",
       description:
-        "Full-stack educational platform helping elementary students identify their VAK (Visual, Auditory, Kinesthetic) learning preferences through an interactive quiz, backed by a teacher classroom portal and ML inference API.",
+        "Decoupled 3-tier educational platform helping elementary students identify their VAK (Visual, Auditory, Kinesthetic) learning preferences via a 10-question quiz, backed by a teacher analytics portal and ML inference API.",
       highlights: [
-        "Built a decoupled 3-tier architecture: Tailwind CSS & Chart.js client (Vercel), Express.js + MySQL (TiDB Cloud) API, and a Python Flask ML service",
-        "Trained and deployed a scikit-learn classification pipeline serving real-time VAK predictions with visual proportion charts",
-        "Engineered a JWT-authenticated Teacher Portal & classroom management dashboard secured with Zod validation, Helmet, and rate limiting",
+        "Built a decoupled 3-tier web app (Vercel, Railway, TiDB Cloud MySQL) with a 10-question VAK quiz and 4-table relational schema",
+        "Created 11 Express.js REST API endpoints for quiz results and Chart.js teacher analytics, secured with JWT, bcryptjs, Helmet, Zod validation, and rate limiting",
+        "Integrated a Python Flask and scikit-learn DecisionTreeClassifier microservice with score normalization and rule-based fallback on timeout",
       ],
       stack: [
         "Express.js",
@@ -164,17 +164,17 @@ export const portfolioData = {
     },
     {
       id: "debouquets",
-      title: "Debouquets E-Commerce",
+      title: "DeBouquets E-Commerce",
       category: "Web Application / Commerce",
       badge: "COMMERCE",
       description:
-        "End-to-end floral boutique e-commerce web platform featuring dynamic catalog filtering, customer cart & wishlist, order tracking, and administrative order fulfillment.",
+        "Collaborative floral boutique e-commerce platform featuring role-based Customer, Admin, and Owner dashboards, dynamic catalog filtering, checkout logistics, and real-time order status updates.",
       highlights: [
-        "Architected comprehensive relational database schema covering Cart, Order, Payment, Shipping, and Review entities",
-        "Engineered full administrative dashboard for real-time inventory management and transaction verification",
-        "Implemented clean server-rendered architecture with Laravel Blade and responsive Tailwind CSS styling",
+        "Co-built on Laravel 12, Blade, Tailwind CSS, Vite, and MySQL across an 18-migration, 13-model relational schema",
+        "Implemented Customer, Admin, and Owner portals with catalog filtering, wishlists, reviews, payment verification, and auto-restocked cancellations",
+        "Added distance/quantity shipping and tax checkout logic plus real-time order broadcasting via Laravel Reverb WebSockets (OrderCreated, OrderUpdated)",
       ],
-      stack: ["Laravel", "PHP", "Blade", "MySQL", "Tailwind CSS"],
+      stack: ["Laravel 12", "PHP", "Blade", "MySQL", "WebSockets", "Tailwind CSS", "Vite"],
       images: [
         {
           src: "/projects/debouquets-hero.jpg",
@@ -223,19 +223,19 @@ export const portfolioData = {
         { name: "React & Next.js", tag: "Primary", iconKey: "react" },
         { name: "TypeScript / JavaScript", tag: "Core", iconKey: "ts" },
         { name: "Tailwind CSS v4", tag: "Styling", iconKey: "tailwind" },
-        { name: "HTML5 / Modern CSS", tag: "Base", iconKey: "html" },
-        { name: "Vite Bundler", tag: "Build", iconKey: "vite" },
+        { name: "HTML5 / CSS3 & Blade", tag: "Markup", iconKey: "html" },
+        { name: "Vite & Chart.js", tag: "Web UI", iconKey: "vite" },
       ],
     },
     {
       name: "Backend & Systems",
       slot: "SLOT 02 // LOGIC & DATA",
       items: [
-        { name: "Laravel (PHP)", tag: "Framework", iconKey: "laravel" },
-        { name: "Go (Golang)", tag: "Systems", iconKey: "go" },
-        { name: "Node.js & Express", tag: "Runtime", iconKey: "node" },
-        { name: "MySQL & PostgreSQL", tag: "Database", iconKey: "database" },
-        { name: "REST APIs & WebSockets", tag: "Protocol", iconKey: "api" },
+        { name: "Laravel (PHP) & Eloquent", tag: "Framework", iconKey: "laravel" },
+        { name: "Go (Gin / GORM) & C", tag: "Systems", iconKey: "go" },
+        { name: "Node.js & Express.js", tag: "Runtime", iconKey: "node" },
+        { name: "MySQL, PostgreSQL & SQLite", tag: "Database", iconKey: "database" },
+        { name: "REST APIs, WebSockets & JWT", tag: "Protocol", iconKey: "api" },
       ],
     },
     {
@@ -244,8 +244,8 @@ export const portfolioData = {
       items: [
         { name: "Python", tag: "Primary", iconKey: "python" },
         { name: "scikit-learn", tag: "ML", iconKey: "scikit" },
-        { name: "TensorFlow", tag: "DL", iconKey: "tf" },
-        { name: "Data Analysis", tag: "Method", iconKey: "data" },
+        { name: "Pandas & NumPy", tag: "Data", iconKey: "data" },
+        { name: "Flask (ML Inference)", tag: "API", iconKey: "flask" },
       ],
     },
     {
@@ -253,9 +253,10 @@ export const portfolioData = {
       slot: "SLOT 04 // ARSENAL",
       items: [
         { name: "Git & GitHub", tag: "VCS", iconKey: "git" },
-        { name: "Postman", tag: "API Test", iconKey: "postman" },
+        { name: "Postman & Zod", tag: "API / Val", iconKey: "postman" },
+        { name: "Figma", tag: "UI/UX", iconKey: "figma" },
+        { name: "Vercel & Railway", tag: "Deploy", iconKey: "cloud" },
         { name: "Antigravity", tag: "AI IDE", iconKey: "antigravity" },
-        { name: "Vercel / Cloud", tag: "Deploy", iconKey: "cloud" },
       ],
     },
   ] as SkillCategory[],
@@ -272,17 +273,17 @@ export const portfolioData = {
     {
       period: "2024 - Present",
       role: "Undergraduate in Computer Science",
-      organization: "Bina Nusantara (BINUS) University",
+      organization: "Bina Nusantara (BINUS) University @Malang",
       description:
-        "Pursuing B.Comp.Sc. with coursework focused on Software Engineering, Data Structures & Algorithms, Object-Oriented Analysis, and Database Systems. Actively translating classroom theory into production-ready web projects.",
+        "Pursuing B.Comp.Sc. (GPA: 3.34/4.00) with coursework focused on Software Engineering, Data Structures & Algorithms, Object-Oriented Analysis, and Database Systems. Actively translating classroom theory into full-stack web projects.",
       type: "Education",
     },
     {
       period: "2025 - 2026",
       role: "Full-Stack Project Developer",
-      organization: "Independent & Academic Labs",
+      organization: "Independent & Academic Projects",
       description:
-        "Architected FitnessVals (Laravel 12 + Go + WebSockets) and engineered the EduBot ML diagnostic system for personalized learning evaluation.",
+        "Built FitnessVals (Laravel 12 + Go + WebSockets), EduBot (Express.js + Flask scikit-learn + TiDB Cloud MySQL), and DeBouquets E-Commerce (Laravel 12 + WebSockets).",
       type: "Experience",
     },
     {

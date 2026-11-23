@@ -30,7 +30,7 @@ const getReducedMotion = () => window.matchMedia(REDUCED_MOTION_QUERY).matches;
 const getServerReducedMotion = () => false;
 
 export default function Home() {
-  const [scanlines, setScanlines] = useState(true);
+  const [scanlines, setScanlines] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
 
   const systemReducedMotion = useSyncExternalStore(
