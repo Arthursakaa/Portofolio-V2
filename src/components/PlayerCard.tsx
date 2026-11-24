@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type PointerEvent } from "react";
 import Image from "next/image";
+import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { portfolioData } from "@/data/portfolio";
 import { retroSound } from "@/lib/audio";
 import { PixelDocumentIcon } from "./PixelIcons";
@@ -14,9 +15,38 @@ export function PlayerCard({ soundEnabled }: PlayerCardProps) {
   const { profile, resume } = portfolioData;
   const [ditherActive, setDitherActive] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+
+  const rawRotateX = useMotionValue(0);
+  const rawRotateY = useMotionValue(0);
+  const rotateX = useSpring(rawRotateX, { stiffness: 180, damping: 22 });
+  const rotateY = useSpring(rawRotateY, { stiffness: 180, damping: 22 });
+
+  const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (shouldReduceMotion || e.pointerType !== "mouse") return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    rawRotateX.set(-py * 7);
+    rawRotateY.set(px * 7);
+  };
+
+  const handlePointerLeave = () => {
+    rawRotateX.set(0);
+    rawRotateY.set(0);
+  };
 
   return (
-    <div className="w-full max-w-sm mx-auto bg-[#fffdf9] pixel-border-lg p-4 sm:p-5 relative stagger-enter stagger-delay-2">
+    <motion.div
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      style={
+        shouldReduceMotion
+          ? undefined
+          : { rotateX, rotateY, transformPerspective: 900 }
+      }
+      className="w-full max-w-sm mx-auto bg-[#fffdf9] pixel-border-lg p-4 sm:p-5 relative stagger-enter stagger-delay-2"
+    >
       {/* Card Header Strip */}
       <div className="flex items-center justify-between border-b-2 border-[#2b2723] pb-2 mb-3">
         <div className="flex items-center gap-1.5">
@@ -160,6 +190,6 @@ export function PlayerCard({ soundEnabled }: PlayerCardProps) {
           <span>DOWNLOAD CV (PDF)</span>
         </a>
       </div>
-    </div>
+    </motion.div>
   );
 }

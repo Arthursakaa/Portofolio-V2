@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect, useSyncExternalStore } from "react";
+import { MotionConfig } from "motion/react";
 import { HeaderNav } from "@/components/HeaderNav";
 import { HeroSection } from "@/components/HeroSection";
 import { PixelCompanion } from "@/components/PixelCompanion";
+import { TechMarquee } from "@/components/TechMarquee";
 import { AboutSection } from "@/components/AboutSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { SkillsInventory } from "@/components/SkillsInventory";
@@ -85,12 +87,13 @@ export default function Home() {
   }, [soundEnabled]);
 
   return (
-    <div
-      data-app-root
-      className={`min-h-screen flex flex-col relative selection:bg-[#ea580c] selection:text-white ${
-        reducedMotion ? "reduce-motion" : ""
-      }`}
-    >
+    <MotionConfig reducedMotion={reducedMotion ? "always" : "user"}>
+      <div
+        data-app-root
+        className={`min-h-screen flex flex-col relative selection:bg-[#ea580c] selection:text-white ${
+          reducedMotion ? "reduce-motion" : ""
+        }`}
+      >
       <ScrollRevealObserver />
       <ArcadeToast />
 
@@ -117,12 +120,15 @@ export default function Home() {
         <HeroSection soundEnabled={soundEnabled} />
 
         {/* Interactive Guide Strip */}
-        <div className="max-w-6xl mx-auto px-4 -mt-6 sm:-mt-8 mb-4 relative z-20">
+        <div className="max-w-6xl mx-auto px-4 -mt-6 sm:-mt-8 mb-6 relative z-20">
           <PixelCompanion
             reducedMotion={reducedMotion}
             soundEnabled={soundEnabled}
           />
         </div>
+
+        {/* Retro Arcade Tech Stack Ticker */}
+        <TechMarquee />
 
         {/* 01. About, Capabilities & Interactive Role Matcher */}
         <AboutSection soundEnabled={soundEnabled} />
@@ -146,8 +152,9 @@ export default function Home() {
         <ContactTerminal soundEnabled={soundEnabled} />
       </main>
 
-      {/* Footer */}
-      <Footer soundEnabled={soundEnabled} />
-    </div>
+        {/* Footer */}
+        <Footer soundEnabled={soundEnabled} />
+      </div>
+    </MotionConfig>
   );
 }

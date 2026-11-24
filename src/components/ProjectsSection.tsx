@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { portfolioData, type Project, type ProjectImage } from "@/data/portfolio";
 import { PixelExternalIcon, PixelSparkleIcon, PixelCodeIcon, PixelPlayIcon } from "./PixelIcons";
 import { ProjectVisualBanner } from "./ProjectVisuals";
@@ -121,25 +122,37 @@ export function ProjectsSection({ soundEnabled }: ProjectsSectionProps) {
             role="tablist"
             aria-label="Filter projects by category"
           >
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                suppressHydrationWarning
-                role="tab"
-                aria-selected={activeFilter === cat}
-                onClick={() => {
-                  if (soundEnabled) retroSound.playSelect();
-                  setActiveFilter(cat);
-                }}
-                className={`pixel-btn px-3 py-1.5 font-pixel text-[9px] ${activeFilter === cat
-                    ? "bg-[#2b2723] text-[#fffdf9]"
-                    : "bg-[#fffdf9] text-[#2b2723] hover:bg-[#e9e2d5]"
+            {CATEGORIES.map((cat) => {
+              const isActive = activeFilter === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  suppressHydrationWarning
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => {
+                    if (soundEnabled) retroSound.playSelect();
+                    setActiveFilter(cat);
+                  }}
+                  className={`relative pixel-btn px-3 py-1.5 font-pixel text-[9px] overflow-hidden ${
+                    isActive
+                      ? "text-[#fffdf9]"
+                      : "bg-[#fffdf9] text-[#2b2723] hover:bg-[#e9e2d5]"
                   }`}
-              >
-                {cat}
-              </button>
-            ))}
+                >
+                  {isActive ? (
+                    <motion.span
+                      layoutId="project-filter-pill"
+                      transition={{ type: "spring", duration: 0.3, bounce: 0.12 }}
+                      className="absolute inset-0 bg-[#2b2723] -z-0"
+                      aria-hidden="true"
+                    />
+                  ) : null}
+                  <span className="relative z-10">{cat}</span>
+                </button>
+              );
+            })}
 
             <a
               href={portfolioData.profile.socials.githubRepos}
@@ -155,27 +168,38 @@ export function ProjectsSection({ soundEnabled }: ProjectsSectionProps) {
         </div>
 
         {/* Project Grid with Visual Illustrations & Interactive Architecture Tabs */}
-        <div
+        <motion.div
+          layout
+          transition={{ layout: { type: "spring", duration: 0.35, bounce: 0.08 } }}
           className={
             filteredProjects.length === 1
               ? "max-w-2xl mx-auto"
               : "grid grid-cols-1 md:grid-cols-2 gap-7"
           }
         >
-          {filteredProjects.map((project, index) => {
-            const showArch = Boolean(expandedArchIds[project.id]);
-            const gallery = getProjectGallery(project);
-            const activeSlideIdx = activeSlideById[project.id] ?? 0;
-            const currentSlide = gallery[activeSlideIdx];
-            const isSpanFull = filteredProjects.length === 3 && index === 0;
+          <AnimatePresence mode="popLayout" initial={false}>
+            {filteredProjects.map((project, index) => {
+              const showArch = Boolean(expandedArchIds[project.id]);
+              const gallery = getProjectGallery(project);
+              const activeSlideIdx = activeSlideById[project.id] ?? 0;
+              const currentSlide = gallery[activeSlideIdx];
+              const isSpanFull = filteredProjects.length === 3 && index === 0;
 
-            return (
-              <div
-                key={project.id}
-                data-reveal
-                data-reveal-item={index % 2}
-                className={`h-full ${isSpanFull ? "md:col-span-2" : ""}`}
-              >
+              return (
+                <motion.div
+                  key={project.id}
+                  layout="position"
+                  initial={{ opacity: 0, scale: 0.96, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.96, y: -8 }}
+                  transition={{
+                    layout: { type: "spring", duration: 0.35, bounce: 0.1 },
+                    opacity: { duration: 0.2, ease: [0.23, 1, 0.32, 1] },
+                    scale: { duration: 0.2, ease: [0.23, 1, 0.32, 1] },
+                    y: { duration: 0.2, ease: [0.23, 1, 0.32, 1] },
+                  }}
+                  className={`h-full ${isSpanFull ? "md:col-span-2" : ""}`}
+                >
                 <article
                   className={`h-full bg-[#fffdf9] pixel-border-lg pixel-card-interactive overflow-hidden ${
                     isSpanFull
@@ -401,33 +425,47 @@ export function ProjectsSection({ soundEnabled }: ProjectsSectionProps) {
                     </div>
                   </div>
                 </article>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+          </AnimatePresence>
+        </motion.div>
       </div>
 
       {/* Full-Resolution Project Screenshot Lightbox Modal */}
-      {previewModal ? (
-        (() => {
-          const modalGallery = getProjectGallery(previewModal.project);
-          const activeSlide = modalGallery[previewModal.slideIndex] ?? modalGallery[0];
-          if (!activeSlide) return null;
+      <AnimatePresence>
+        {previewModal ? (
+          (() => {
+            const modalGallery = getProjectGallery(previewModal.project);
+            const activeSlide = modalGallery[previewModal.slideIndex] ?? modalGallery[0];
+            if (!activeSlide) return null;
 
-          return (
-            <div
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="project-preview-title"
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2b2723]/75 backdrop-blur-xs animate-confirm-pop"
-              onClick={(e) => {
-                if (e.target === e.currentTarget) {
-                  if (soundEnabled) retroSound.playSelect();
-                  setPreviewModal(null);
-                }
-              }}
-            >
-              <div className="w-full max-w-4xl bg-[#fffdf9] pixel-border-lg p-5 sm:p-6 max-h-[92vh] overflow-y-auto no-scrollbar relative shadow-[6px_6px_0_0_#2b2723]">
+            return (
+              <motion.div
+                key="project-preview-backdrop"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="project-preview-title"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+                className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2b2723]/75 backdrop-blur-xs"
+                onClick={(e) => {
+                  if (e.target === e.currentTarget) {
+                    if (soundEnabled) retroSound.playSelect();
+                    setPreviewModal(null);
+                  }
+                }}
+              >
+                <motion.div
+                  key="project-preview-dialog"
+                  initial={{ opacity: 0, scale: 0.96, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.96, y: 8 }}
+                  transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+                  className="w-full max-w-4xl bg-[#fffdf9] pixel-border-lg p-5 sm:p-6 max-h-[92vh] overflow-y-auto no-scrollbar relative shadow-[6px_6px_0_0_#2b2723]"
+                >
                 {/* Modal Header */}
                 <div className="flex items-start justify-between gap-3 border-b-2 border-[#2b2723] pb-3 mb-4">
                   <div>
@@ -463,15 +501,21 @@ export function ProjectsSection({ soundEnabled }: ProjectsSectionProps) {
 
                 {/* Large Screenshot Viewport */}
                 <div
-                  className="border-2 border-[#2b2723] p-2 sm:p-3 mb-4 flex items-center justify-center"
+                  className="border-2 border-[#2b2723] p-2 sm:p-3 mb-4 flex items-center justify-center overflow-hidden"
                   style={{ backgroundColor: activeSlide.bg ?? "#f4efe6" }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={activeSlide.src}
-                    alt={`${previewModal.project.title} — ${activeSlide.label}`}
-                    className="w-full max-h-[60vh] object-contain"
-                  />
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={activeSlide.src}
+                      src={activeSlide.src}
+                      alt={`${previewModal.project.title} — ${activeSlide.label}`}
+                      initial={{ opacity: 0, scale: 0.985 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.985 }}
+                      transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
+                      className="w-full max-h-[60vh] object-contain"
+                    />
+                  </AnimatePresence>
                 </div>
 
                 {/* Screen Switcher Tabs when Multiple Screenshots Exist */}
@@ -540,11 +584,12 @@ export function ProjectsSection({ soundEnabled }: ProjectsSectionProps) {
                     </div>
                   </div>
                 ) : null}
-              </div>
-            </div>
-          );
-        })()
-      ) : null}
-    </section>
+                  </motion.div>
+                </motion.div>
+              );
+            })()
+          ) : null}
+        </AnimatePresence>
+      </section>
   );
 }

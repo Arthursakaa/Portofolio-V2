@@ -5,6 +5,7 @@ import { PixelSprite } from "@/components/sprites/PixelSprite";
 import { BASE_PALETTE, COIN } from "@/components/sprites/spriteData";
 import { arcade, COIN_COUNT, prefersReducedMotion, useArcade } from "@/lib/arcadeStore";
 import { retroSound } from "@/lib/audio";
+import { firePixelConfetti } from "@/lib/confetti";
 
 /** One collectible coin for the hidden coin hunt (plan 019). */
 export function HiddenCoin({ index, className }: { index: number; className: string }) {
@@ -17,8 +18,12 @@ export function HiddenCoin({ index, className }: { index: number; className: str
     retroSound.playCoin();
     setCollecting(true);
     window.setTimeout(() => {
+      const prev = arcade.getState().coins.length;
       const total = arcade.collectCoin(index);
-      if (total === COIN_COUNT) arcade.showToast("ACHIEVEMENT UNLOCKED: COIN COLLECTOR");
+      if (prev < COIN_COUNT && total === COIN_COUNT) {
+        arcade.showToast("ACHIEVEMENT UNLOCKED: COIN COLLECTOR");
+        void firePixelConfetti("celebration");
+      }
     }, prefersReducedMotion() ? 0 : 360);
   };
 

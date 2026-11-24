@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import { retroSound } from "@/lib/audio";
 import { MiniPixelDev } from "./MiniPixelDev";
 
@@ -30,6 +32,42 @@ export function HeaderNav({
   reducedMotion,
   setReducedMotion,
 }: HeaderNavProps) {
+  const [activeHref, setActiveHref] = useState<string>("");
+
+  useEffect(() => {
+    const ids = NAV_ITEMS.map((item) => item.href.slice(1));
+    const elements = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    if (elements.length === 0 || typeof IntersectionObserver === "undefined") return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveHref(`#${entry.target.id}`);
+          }
+        }
+      },
+      { rootMargin: "-32% 0px -56% 0px", threshold: 0 }
+    );
+
+    elements.forEach((el) => io.observe(el));
+
+    const onScrollTop = () => {
+      if (window.scrollY < 160) {
+        setActiveHref("");
+      }
+    };
+    window.addEventListener("scroll", onScrollTop, { passive: true });
+
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", onScrollTop);
+    };
+  }, []);
+
   const toggleSound = () => {
     const next = !soundEnabled;
     if (next) {
@@ -74,16 +112,35 @@ export function HeaderNav({
           aria-label="Main Navigation"
           className="order-3 lg:order-2 w-full lg:w-auto flex items-center gap-1.5 overflow-x-auto no-scrollbar max-w-full pt-0.5 pb-1 pr-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => soundEnabled && retroSound.playSelect()}
-              className="pixel-btn px-2 py-1.5 text-[9px] font-pixel bg-[#fffdf9] hover:bg-[#e9e2d5] text-[#2b2723] whitespace-nowrap shrink-0"
-            >
-              {item.label}
-            </a>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeHref === item.href;
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                aria-current={isActive ? "location" : undefined}
+                onClick={() => {
+                  if (soundEnabled) retroSound.playSelect();
+                  setActiveHref(item.href);
+                }}
+                className={`relative pixel-btn px-2 py-1.5 text-[9px] font-pixel whitespace-nowrap shrink-0 overflow-hidden ${
+                  isActive
+                    ? "text-[#fffdf9]"
+                    : "bg-[#fffdf9] hover:bg-[#e9e2d5] text-[#2b2723]"
+                }`}
+              >
+                {isActive ? (
+                  <motion.span
+                    layoutId="nav-active-pill"
+                    transition={{ type: "spring", duration: 0.3, bounce: 0.1 }}
+                    className="absolute inset-0 bg-[#2b2723]"
+                    aria-hidden="true"
+                  />
+                ) : null}
+                <span className="relative z-10">{item.label}</span>
+              </a>
+            );
+          })}
         </nav>
 
         {/* Retro Experience Toggles */}

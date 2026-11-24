@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { portfolioData } from "@/data/portfolio";
 import {
   PixelCopyIcon,
@@ -31,6 +32,8 @@ export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
   // Increments on every copy so the confirmation pop replays even while `copied` is already true
   const [copyTick, setCopyTick] = useState(0);
   const [inputVal, setInputVal] = useState("");
+  const [historyListRef] = useAutoAnimate<HTMLDivElement>({ duration: 180 });
+  const scrollBoxRef = useRef<HTMLDivElement | null>(null);
   const [history, setHistory] = useState<LogLine[]>([
     {
       cmd: "./get_contact_info.sh",
@@ -44,6 +47,12 @@ export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
       ],
     },
   ]);
+
+  useEffect(() => {
+    if (history.length > 1 && scrollBoxRef.current) {
+      scrollBoxRef.current.scrollTop = scrollBoxRef.current.scrollHeight;
+    }
+  }, [history.length]);
 
   const copyEmail = () => {
     if (soundEnabled) retroSound.playCoin();
@@ -314,30 +323,32 @@ export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
             </div>
 
             {/* Terminal Output History */}
-            <div className="space-y-3 text-xs sm:text-sm max-h-64 overflow-y-auto pr-1 mb-4">
-              {history.map((item, idx) => (
-                <div key={idx} className="space-y-1">
-                  {item.cmd ? (
-                    <p
-                      className={`text-[#10b981] font-bold ${item.boot ? "boot-line" : ""}`}
-                      style={item.boot ? ({ "--line": 0 } as React.CSSProperties) : undefined}
-                    >
-                      arthur@binus:~$ <span className="text-white">{item.cmd}</span>
-                    </p>
-                  ) : null}
-                  <div className="bg-[#1f1b18] border-l-2 border-[#38bdf8] pl-3 py-2 space-y-1 text-xs text-[#e9e2d5]">
-                    {item.output.map((line, lIdx) => (
+            <div ref={scrollBoxRef} className="max-h-64 overflow-y-auto pr-1 mb-4">
+              <div ref={historyListRef} className="space-y-3 text-xs sm:text-sm">
+                {history.map((item, idx) => (
+                  <div key={idx} className="space-y-1">
+                    {item.cmd ? (
                       <p
-                        key={lIdx}
-                        className={`leading-relaxed ${item.boot ? "boot-line" : ""}`}
-                        style={item.boot ? ({ "--line": lIdx + 1 } as React.CSSProperties) : undefined}
+                        className={`text-[#10b981] font-bold ${item.boot ? "boot-line" : ""}`}
+                        style={item.boot ? ({ "--line": 0 } as React.CSSProperties) : undefined}
                       >
-                        {line}
+                        arthur@binus:~$ <span className="text-white">{item.cmd}</span>
                       </p>
-                    ))}
+                    ) : null}
+                    <div className="bg-[#1f1b18] border-l-2 border-[#38bdf8] pl-3 py-2 space-y-1 text-xs text-[#e9e2d5]">
+                      {item.output.map((line, lIdx) => (
+                        <p
+                          key={lIdx}
+                          className={`leading-relaxed ${item.boot ? "boot-line" : ""}`}
+                          style={item.boot ? ({ "--line": lIdx + 1 } as React.CSSProperties) : undefined}
+                        >
+                          {line}
+                        </p>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             {/* Live Command Prompt Input */}

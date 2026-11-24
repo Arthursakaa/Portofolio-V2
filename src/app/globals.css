@@ -301,6 +301,73 @@ body {
   animation: none !important;
 }
 
+/* Stepped retro terminal cursor blink */
+@keyframes cursorBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.retro-cursor {
+  animation: cursorBlink 0.9s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .retro-cursor {
+    animation: none !important;
+    opacity: 0;
+  }
+}
+
+.reduce-motion .retro-cursor {
+  animation: none !important;
+  opacity: 0;
+}
+
+/* Retro Tech Marquee: GPU-composited infinite ticker, pauses on hover, static wrap on reduced motion */
+@keyframes retroMarqueeScroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.retro-marquee-track {
+  animation: retroMarqueeScroll 30s linear infinite;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .retro-marquee:hover .retro-marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .retro-marquee-track {
+    animation: none !important;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+  .retro-marquee-dup {
+    display: none;
+  }
+}
+
+.reduce-motion .retro-marquee-track {
+  animation: none !important;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.reduce-motion .retro-marquee-dup {
+  display: none;
+}
+
 /* Pixel-wipe for section headings (plan 012). Uncovers left to right in 12
    steps once the section group is revealed. steps() is a deliberate retro
    choice, used only on these six headings. */

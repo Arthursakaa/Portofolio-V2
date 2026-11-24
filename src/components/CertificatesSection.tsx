@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { portfolioData, type Certificate } from "@/data/portfolio";
 import {
   PixelAwardIcon,
@@ -262,19 +263,32 @@ export function CertificatesSection({ soundEnabled }: CertificatesSectionProps) 
       </div>
 
       {/* Retro Lightbox Modal for Full Certificate Inspection */}
-      {selectedCert ? (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="cert-modal-title"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2b2723]/70 backdrop-blur-xs animate-confirm-pop"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              closeModal();
-            }
-          }}
-        >
-          <div className="w-full max-w-2xl bg-[#fffdf9] pixel-border-lg p-5 sm:p-6 max-h-[90vh] overflow-y-auto no-scrollbar relative shadow-[6px_6px_0_0_#2b2723]">
+      <AnimatePresence>
+        {selectedCert ? (
+          <motion.div
+            key="cert-modal-backdrop"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cert-modal-title"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2b2723]/70 backdrop-blur-xs"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                closeModal();
+              }
+            }}
+          >
+            <motion.div
+              key="cert-modal-dialog"
+              initial={{ opacity: 0, scale: 0.96, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 8 }}
+              transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+              className="w-full max-w-2xl bg-[#fffdf9] pixel-border-lg p-5 sm:p-6 max-h-[90vh] overflow-y-auto no-scrollbar relative shadow-[6px_6px_0_0_#2b2723]"
+            >
             {/* Modal Header */}
             <div className="flex items-start justify-between gap-3 border-b-2 border-[#2b2723] pb-3 mb-4">
               <div>
@@ -396,9 +410,10 @@ export function CertificatesSection({ soundEnabled }: CertificatesSectionProps) 
                 Close
               </button>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       ) : null}
+      </AnimatePresence>
     </section>
   );
 }

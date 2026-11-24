@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
+import NumberFlow from "@number-flow/react";
 import { Gamepad, Trophy } from "@nsmr/pixelart-react";
 import { BotMood, BotSprite } from "@/components/sprites/BotSprite";
 import { PixelSprite } from "@/components/sprites/PixelSprite";
@@ -185,7 +186,10 @@ export function ArcadeCorner({ soundEnabled = false }: ArcadeCornerProps) {
         </div>
         <span className="flex items-center gap-1.5 font-pixel text-[8px] text-[#2b2723]">
           <PixelSprite layers={[{ rows: COIN }]} palette={BASE_PALETTE} scale={1.5} />
-          COINS {coins.length}/{COIN_COUNT}
+          <span className="inline-flex items-center">
+            COINS&nbsp;
+            <NumberFlow value={coins.length} className="tabular-nums" />/{COIN_COUNT}
+          </span>
         </span>
       </div>
 

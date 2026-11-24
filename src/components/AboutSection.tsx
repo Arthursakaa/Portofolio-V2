@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { portfolioData } from "@/data/portfolio";
 import { EngineeringPillarIllustration } from "./ProjectVisuals";
 import { retroSound } from "@/lib/audio";
@@ -134,62 +135,82 @@ export function AboutSection({ soundEnabled }: AboutSectionProps) {
             </div>
 
             <div className="flex flex-wrap gap-2" role="tablist" aria-label="Target Internship Roles">
-              {ROLE_HIGHLIGHTS.map((item, idx) => (
-                <button
-                  key={item.role}
-                  type="button"
-                  suppressHydrationWarning
-                  role="tab"
-                  aria-selected={selectedRoleIdx === idx}
-                  onClick={() => {
-                    if (soundEnabled) retroSound.playSelect();
-                    setSelectedRoleIdx(idx);
-                  }}
-                  className={`pixel-btn px-3 py-2 font-pixel text-[9px] ${
-                    selectedRoleIdx === idx
-                      ? "bg-[#2b2723] text-[#fffdf9]"
-                      : "bg-[#fffdf9] text-[#2b2723] hover:bg-[#e9e2d5]"
-                  }`}
-                >
-                  {item.role}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            <div className="lg:col-span-7 space-y-2">
-              <p className="font-mono text-xs font-bold text-[#047857] uppercase">
-                Why I Match: {ROLE_HIGHLIGHTS[selectedRoleIdx].role}
-              </p>
-              <p className="text-sm sm:text-base text-[#2b2723] leading-relaxed">
-                {ROLE_HIGHLIGHTS[selectedRoleIdx].whyFit}
-              </p>
-              <p className="text-xs text-[#575049] pt-1 leading-relaxed">
-                {profile.about}
-              </p>
-            </div>
-
-            <div className="lg:col-span-5 bg-[#fffdf9] border-2 border-[#2b2723] p-4 shadow-[3px_3px_0_0_#2b2723]">
-              <p className="font-pixel text-[9px] text-[#575049] mb-2.5">
-                CORE COMPETENCIES FOR THIS ROLE:
-              </p>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {ROLE_HIGHLIGHTS[selectedRoleIdx].keyTech.map((t) => (
-                  <span
-                    key={t}
-                    className="px-2.5 py-1 bg-[#10b981]/15 border border-[#2b2723] text-xs font-mono font-bold text-[#2b2723]"
+              {ROLE_HIGHLIGHTS.map((item, idx) => {
+                const isSelected = selectedRoleIdx === idx;
+                return (
+                  <button
+                    key={item.role}
+                    type="button"
+                    suppressHydrationWarning
+                    role="tab"
+                    aria-selected={isSelected}
+                    onClick={() => {
+                      if (soundEnabled) retroSound.playSelect();
+                      setSelectedRoleIdx(idx);
+                    }}
+                    className={`relative pixel-btn px-3 py-2 font-pixel text-[9px] overflow-hidden ${
+                      isSelected
+                        ? "text-[#fffdf9]"
+                        : "bg-[#fffdf9] text-[#2b2723] hover:bg-[#e9e2d5]"
+                    }`}
                   >
-                    {t}
-                  </span>
-                ))}
-              </div>
-              <div className="pt-2 border-t border-[#2b2723]/20 flex items-center justify-between text-xs font-mono">
-                <span className="text-[#575049]">Education:</span>
-                <span className="font-bold text-[#2b2723]">BINUS University (CS)</span>
-              </div>
+                    {isSelected ? (
+                      <motion.span
+                        layoutId="role-tab-pill"
+                        transition={{ type: "spring", duration: 0.3, bounce: 0.12 }}
+                        className="absolute inset-0 bg-[#2b2723] -z-0"
+                        aria-hidden="true"
+                      />
+                    ) : null}
+                    <span className="relative z-10">{item.role}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={ROLE_HIGHLIGHTS[selectedRoleIdx].role}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center"
+            >
+              <div className="lg:col-span-7 space-y-2">
+                <p className="font-mono text-xs font-bold text-[#047857] uppercase">
+                  Why I Match: {ROLE_HIGHLIGHTS[selectedRoleIdx].role}
+                </p>
+                <p className="text-sm sm:text-base text-[#2b2723] leading-relaxed">
+                  {ROLE_HIGHLIGHTS[selectedRoleIdx].whyFit}
+                </p>
+                <p className="text-xs text-[#575049] pt-1 leading-relaxed">
+                  {profile.about}
+                </p>
+              </div>
+
+              <div className="lg:col-span-5 bg-[#fffdf9] border-2 border-[#2b2723] p-4 shadow-[3px_3px_0_0_#2b2723]">
+                <p className="font-pixel text-[9px] text-[#575049] mb-2.5">
+                  CORE COMPETENCIES FOR THIS ROLE:
+                </p>
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {ROLE_HIGHLIGHTS[selectedRoleIdx].keyTech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2.5 py-1 bg-[#10b981]/15 border border-[#2b2723] text-xs font-mono font-bold text-[#2b2723]"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <div className="pt-2 border-t border-[#2b2723]/20 flex items-center justify-between text-xs font-mono">
+                  <span className="text-[#575049]">Education:</span>
+                  <span className="font-bold text-[#2b2723]">BINUS University (CS)</span>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>
