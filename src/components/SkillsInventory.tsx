@@ -149,6 +149,7 @@ export function SkillsInventory({ soundEnabled }: SkillsInventoryProps) {
   const handleToggleSkill = (key: string) => {
     if (soundEnabled) retroSound.playSelect();
     setSelectedKey((prev) => (prev === key ? null : key));
+    window.setTimeout(() => ScrollTrigger.refresh(), 240);
   };
 
   return (
