@@ -2,7 +2,14 @@
 
 import { useState, type PointerEvent } from "react";
 import Image from "next/image";
-import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import { portfolioData } from "@/data/portfolio";
 import { retroSound } from "@/lib/audio";
 import { PixelDocumentIcon } from "./PixelIcons";
@@ -19,21 +26,41 @@ export function PlayerCard({ soundEnabled }: PlayerCardProps) {
 
   const rawRotateX = useMotionValue(0);
   const rawRotateY = useMotionValue(0);
-  const rotateX = useSpring(rawRotateX, { stiffness: 180, damping: 22 });
-  const rotateY = useSpring(rawRotateY, { stiffness: 180, damping: 22 });
+  const rawGlareX = useMotionValue(50);
+  const rawGlareY = useMotionValue(50);
+  const rawGlareOpacity = useMotionValue(0);
+
+  const springConfig = { stiffness: 210, damping: 20 };
+  const rotateX = useSpring(rawRotateX, springConfig);
+  const rotateY = useSpring(rawRotateY, springConfig);
+  const glareX = useSpring(rawGlareX, springConfig);
+  const glareY = useSpring(rawGlareY, springConfig);
+  const glareOpacity = useSpring(rawGlareOpacity, { stiffness: 260, damping: 28 });
+
+  // Subtle internal photo parallax for layered depth
+  const photoX = useTransform(rotateY, [-6, 6], [4, -4]);
+  const photoY = useTransform(rotateX, [-6, 6], [-4, 4]);
+
+  const glareBackground = useMotionTemplate`radial-gradient(280px circle at ${glareX}% ${glareY}%, rgba(255, 253, 249, 0.42), rgba(234, 88, 12, 0.08) 45%, transparent 72%)`;
 
   const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
     if (shouldReduceMotion || e.pointerType !== "mouse") return;
     const rect = e.currentTarget.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    rawRotateX.set(-py * 7);
-    rawRotateY.set(px * 7);
+    const nx = (e.clientX - rect.left) / rect.width;
+    const ny = (e.clientY - rect.top) / rect.height;
+    rawRotateX.set(-(ny - 0.5) * 12);
+    rawRotateY.set((nx - 0.5) * 12);
+    rawGlareX.set(nx * 100);
+    rawGlareY.set(ny * 100);
+    rawGlareOpacity.set(1);
   };
 
   const handlePointerLeave = () => {
     rawRotateX.set(0);
     rawRotateY.set(0);
+    rawGlareX.set(50);
+    rawGlareY.set(50);
+    rawGlareOpacity.set(0);
   };
 
   return (
@@ -43,25 +70,45 @@ export function PlayerCard({ soundEnabled }: PlayerCardProps) {
       style={
         shouldReduceMotion
           ? undefined
-          : { rotateX, rotateY, transformPerspective: 900 }
+          : {
+              rotateX,
+              rotateY,
+              transformPerspective: 950,
+              transformStyle: "preserve-3d",
+            }
       }
       className="w-full max-w-sm mx-auto bg-[#fffdf9] pixel-border-lg p-4 sm:p-5 relative stagger-enter stagger-delay-2"
     >
+      {/* Dynamic Retro Glare Overlay (Desktop Fine Pointer + ANIM:ON only) */}
+      {!shouldReduceMotion ? (
+        <motion.div
+          aria-hidden="true"
+          style={{ background: glareBackground, opacity: glareOpacity }}
+          className="pointer-events-none absolute inset-0 z-30 mix-blend-soft-light"
+        />
+      ) : null}
+
       {/* Card Header Strip */}
-      <div className="flex items-center justify-between border-b-2 border-[#2b2723] pb-2 mb-3">
+      <div
+        style={shouldReduceMotion ? undefined : { transform: "translateZ(18px)" }}
+        className="flex items-center justify-between border-b-2 border-[#2b2723] pb-2 mb-3"
+      >
         <div className="flex items-center gap-1.5">
           <span className="w-2.5 h-2.5 bg-[#ea580c] border border-[#2b2723]" />
           <span className="font-pixel text-[10px] text-[#2b2723]">
             DEVELOPER PROFILE CARD
           </span>
         </div>
-        <span className="font-pixel text-[9px] bg-[#2b2723] text-[#fffdf9] px-1.5 py-0.5">
+        <span className="font-pixel text-[9px] bg-[#2b2723] text-[#fffdf9] px-1.5 py-0.5 shadow-[2px_2px_0_0_#ea580c]">
           CS @ BINUS
         </span>
       </div>
 
       {/* Photo Viewport with Pixel Stepping Frame */}
-      <div className="relative border-2 border-[#2b2723] bg-[#e9e2d5] p-2 mb-4 group overflow-hidden">
+      <div
+        style={shouldReduceMotion ? undefined : { transform: "translateZ(24px)" }}
+        className="relative border-2 border-[#2b2723] bg-[#e9e2d5] p-2 mb-4 group overflow-hidden"
+      >
         {/* Pixel Corner Accents */}
         <span className="absolute top-0 left-0 w-2 h-2 bg-[#2b2723] z-10" />
         <span className="absolute top-0 right-0 w-2 h-2 bg-[#2b2723] z-10" />
@@ -70,7 +117,14 @@ export function PlayerCard({ soundEnabled }: PlayerCardProps) {
 
         <div className="relative w-full aspect-[4/5] bg-[#ded5c5] flex items-center justify-center overflow-hidden border border-[#2b2723]/30">
           {!imgError ? (
-            <div className="relative w-full h-full">
+            <motion.div
+              style={
+                shouldReduceMotion
+                  ? undefined
+                  : { x: photoX, y: photoY, scale: 1.03 }
+              }
+              className="relative w-full h-full"
+            >
               <Image
                 src={profile.photo}
                 alt={profile.fullName}
@@ -86,7 +140,7 @@ export function PlayerCard({ soundEnabled }: PlayerCardProps) {
               {ditherActive ? (
                 <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(0,0,0,0)_50%,rgba(0,0,0,0.12)_50%)] bg-[length:100%_4px] opacity-40 group-hover:opacity-10 transition-opacity duration-200" />
               ) : null}
-            </div>
+            </motion.div>
           ) : (
             /* Fallback Retro Pixel Avatar in CSS if profile image hasn't been uploaded yet */
             <div className="flex flex-col items-center justify-center p-4 text-center">

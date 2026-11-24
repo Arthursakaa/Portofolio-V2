@@ -1,12 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { useReducedMotion } from "motion/react";
 import { portfolioData } from "@/data/portfolio";
 import { retroSound } from "@/lib/audio";
 import { HiddenCoin } from "@/components/arcade/HiddenCoin";
 import { CatWalkSprite } from "@/components/sprites/CatSprites";
 import { PixelSprite } from "@/components/sprites/PixelSprite";
 import { BASE_PALETTE, SAVE_CRYSTAL } from "@/components/sprites/spriteData";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 interface TimelineSectionProps {
   soundEnabled?: boolean;
@@ -21,10 +27,13 @@ interface RailMetrics {
 export function TimelineSection({ soundEnabled }: TimelineSectionProps) {
   const { timeline } = portfolioData;
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isHoveringCard, setIsHoveringCard] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
+  const sectionRef = useRef<HTMLElement | null>(null);
   const spineRef = useRef<HTMLDivElement | null>(null);
+  const railFillRef = useRef<HTMLDivElement | null>(null);
   const nodeRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const isHoveringRef = useRef(false);
   const manualLockRef = useRef(false);
   const lockTimerRef = useRef<number>(0);
 
@@ -67,49 +76,95 @@ export function TimelineSection({ soundEnabled }: TimelineSectionProps) {
     return () => {
       ro.disconnect();
       window.removeEventListener("resize", measure);
+      if (lockTimerRef.current !== 0) window.clearTimeout(lockTimerRef.current);
     };
   }, [timeline]);
 
-  // Calibrated scroll tracking: activates each checkpoint as its card reaches the comfortable reading zone
+  const totalSpan = Math.max(1, metrics.lastY - metrics.firstY);
+  const activeY = metrics.nodeYs[activeIndex] ?? metrics.firstY;
+  const progressRatio = Math.min(1, Math.max(0, (activeY - metrics.firstY) / totalSpan));
+
+  // GSAP ScrollTrigger: continuous scrubbed progress rail + per-card scroll entrance
+  useGSAP(
+    () => {
+      const spine = spineRef.current;
+      const railFill = railFillRef.current;
+      if (!spine || !railFill) return;
+
+      const setRailScale = shouldReduceMotion
+        ? (val: number) => gsap.set(railFill, { scaleY: val })
+        : gsap.quickTo(railFill, "scaleY", { duration: 0.2, ease: "power2.out" });
+
+      ScrollTrigger.create({
+        trigger: spine,
+        start: "top 55%",
+        end: "bottom 55%",
+        onUpdate: (self) => {
+          if (isHoveringRef.current || manualLockRef.current) return;
+
+          // Smoothly scrub the orange progress rail in sync with scroll position
+          setRailScale(self.progress);
+
+          // Activate checkpoint as each node crosses the comfortable reading line
+          const readingLineY = window.innerHeight * 0.55;
+          let nextActive = 0;
+          for (let i = 0; i < timeline.length; i++) {
+            const el = nodeRefs.current[i];
+            if (!el) continue;
+            const rect = el.getBoundingClientRect();
+            if (rect.top + rect.height / 2 <= readingLineY) {
+              nextActive = i;
+            }
+          }
+          setActiveIndex((prev) => (prev !== nextActive ? nextActive : prev));
+        },
+      });
+
+      if (
+        shouldReduceMotion ||
+        typeof window === "undefined" ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        document.querySelector("[data-app-root]")?.classList.contains("reduce-motion")
+      ) {
+        return;
+      }
+
+      const cards = gsap.utils.toArray<HTMLElement>("[data-timeline-card]");
+      cards.forEach((card) => {
+        gsap.from(card, {
+          x: -14,
+          opacity: 0,
+          duration: 0.36,
+          ease: "power3.out",
+          clearProps: "transform,opacity",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 86%",
+            once: true,
+          },
+        });
+      });
+    },
+    { scope: sectionRef, dependencies: [shouldReduceMotion, timeline.length], revertOnUpdate: true }
+  );
+
+  // Sync rail fill smoothly when user explicitly hovers or clicks a stage
   useEffect(() => {
-    let rafId = 0;
+    const railFill = railFillRef.current;
+    if (!railFill) return;
+    if (!isHoveringRef.current && !manualLockRef.current) return;
 
-    const updateFromScroll = () => {
-      rafId = 0;
-      if (isHoveringCard || manualLockRef.current) return;
-
-      const viewportH = window.innerHeight;
-      // Reading focal line sits around the middle of the viewport (52% from top)
-      const readingLineY = viewportH * 0.52;
-
-      let nextActive = 0;
-      for (let i = 0; i < timeline.length; i++) {
-        const el = nodeRefs.current[i];
-        if (!el) continue;
-        const rect = el.getBoundingClientRect();
-        const nodeCenterY = rect.top + rect.height / 2;
-        if (nodeCenterY <= readingLineY) {
-          nextActive = i;
-        }
-      }
-
-      setActiveIndex((prev) => (prev !== nextActive ? nextActive : prev));
-    };
-
-    const onScroll = () => {
-      if (rafId === 0) {
-        rafId = window.requestAnimationFrame(updateFromScroll);
-      }
-    };
-
-    updateFromScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (rafId !== 0) window.cancelAnimationFrame(rafId);
-      if (lockTimerRef.current !== 0) window.clearTimeout(lockTimerRef.current);
-    };
-  }, [timeline.length, isHoveringCard]);
+    if (shouldReduceMotion) {
+      gsap.set(railFill, { scaleY: progressRatio });
+    } else {
+      gsap.to(railFill, {
+        scaleY: progressRatio,
+        duration: 0.3,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+    }
+  }, [progressRatio, shouldReduceMotion]);
 
   const selectStage = (index: number, scrollIntoView = false) => {
     if (soundEnabled) retroSound.playSelect();
@@ -127,12 +182,8 @@ export function TimelineSection({ soundEnabled }: TimelineSectionProps) {
     }
   };
 
-  const totalSpan = Math.max(1, metrics.lastY - metrics.firstY);
-  const activeY = metrics.nodeYs[activeIndex] ?? metrics.firstY;
-  const progressRatio = Math.min(1, Math.max(0, (activeY - metrics.firstY) / totalSpan));
-
   return (
-    <section id="experience" data-reveal className="relative py-16 border-b-2 border-[#2b2723] bg-[#f4efe6]">
+    <section ref={sectionRef} id="experience" data-reveal className="relative py-16 border-b-2 border-[#2b2723] bg-[#f4efe6]">
       <HiddenCoin index={3} className="absolute top-5 left-6 sm:left-1/3" />
       <div className="max-w-4xl mx-auto px-4">
         {/* Section Header + Interactive Save Point */}
@@ -204,7 +255,9 @@ export function TimelineSection({ soundEnabled }: TimelineSectionProps) {
         {/* RPG Questline Path */}
         <div
           ref={spineRef}
-          onMouseLeave={() => setIsHoveringCard(false)}
+          onMouseLeave={() => {
+            isHoveringRef.current = false;
+          }}
           className="timeline-spine space-y-6 relative"
         >
           {/* 1. Continuous Base Rail (Muted Paper Channel) */}
@@ -217,15 +270,16 @@ export function TimelineSection({ soundEnabled }: TimelineSectionProps) {
             className="timeline-rail-base absolute left-4 sm:left-6 -translate-x-1/2 w-2 bg-[#ded5c5] border-x-2 border-[#2b2723] z-0"
           />
 
-          {/* 2. Smooth Orange Progress Fill Bar */}
+          {/* 2. Smooth Orange Progress Fill Bar (GSAP ScrollTrigger Scrubbed) */}
           <div
+            ref={railFillRef}
             aria-hidden="true"
             style={{
               top: `${metrics.firstY}px`,
               height: `${totalSpan}px`,
-              transform: `scaleY(${progressRatio})`,
+              transform: "scaleY(0)",
             }}
-            className="timeline-rail-fill absolute left-4 sm:left-6 -translate-x-1/2 w-2 bg-[#ea580c] border-x-2 border-[#2b2723] origin-top z-0"
+            className="absolute left-4 sm:left-6 -translate-x-1/2 w-2 bg-[#ea580c] border-x-2 border-[#2b2723] origin-top z-0"
           />
 
           {/* 3. Pixel Quest Marker (8-Bit Arrow Cursor docked at active checkpoint) */}
@@ -267,10 +321,9 @@ export function TimelineSection({ soundEnabled }: TimelineSectionProps) {
             return (
               <div
                 key={index}
-                data-reveal
-                data-reveal-item={0}
+                data-timeline-card
                 onMouseEnter={() => {
-                  setIsHoveringCard(true);
+                  isHoveringRef.current = true;
                   if (activeIndex !== index) {
                     setActiveIndex(index);
                     if (soundEnabled) retroSound.playBlip(620, "triangle", 0.03);

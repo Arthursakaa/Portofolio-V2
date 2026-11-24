@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useReducedMotion } from "motion/react";
 import { portfolioData } from "@/data/portfolio";
@@ -13,7 +14,7 @@ import {
 } from "./PixelIcons";
 import { retroSound } from "@/lib/audio";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const HERO_ROLES = [
   "Full-Stack Web Developer",
@@ -70,6 +71,7 @@ export function HeroSection({ soundEnabled }: HeroSectionProps) {
   useGSAP(
     () => {
       if (
+        shouldReduceMotion ||
         typeof window === "undefined" ||
         window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
         document.querySelector("[data-app-root]")?.classList.contains("reduce-motion")
@@ -95,8 +97,20 @@ export function HeroSection({ soundEnabled }: HeroSectionProps) {
         ease: "power3.out",
         clearProps: "transform,opacity",
       });
+
+      // Subtle scroll-linked parallax on decorative dot-matrix backdrop
+      gsap.to("[data-hero-grid]", {
+        y: 44,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.4,
+        },
+      });
     },
-    { scope: sectionRef }
+    { scope: sectionRef, dependencies: [shouldReduceMotion], revertOnUpdate: true }
   );
 
   return (
@@ -105,7 +119,10 @@ export function HeroSection({ soundEnabled }: HeroSectionProps) {
       className="relative py-12 md:py-20 border-b-2 border-[#2b2723] overflow-hidden"
     >
       {/* Decorative Retro Grid Background */}
-      <div className="absolute inset-0 dot-matrix-bg opacity-30 pointer-events-none" />
+      <div
+        data-hero-grid
+        className="absolute -inset-y-12 inset-x-0 dot-matrix-bg opacity-30 pointer-events-none"
+      />
 
       <div className="max-w-6xl mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -132,15 +149,17 @@ export function HeroSection({ soundEnabled }: HeroSectionProps) {
               </p>
 
               {/* Interactive Retro Typewriter Role Cycler */}
-              <div className="flex flex-wrap items-center gap-2 pt-1 min-h-[2.25rem]">
-                <span className="font-mono text-xs font-bold text-[#ea580c]">
+              <div className="flex flex-col items-start sm:flex-row sm:items-center gap-1.5 sm:gap-2 pt-1">
+                <span className="font-mono text-xs font-bold text-[#ea580c] shrink-0">
                   $ role --focus
                 </span>
-                <span className="inline-flex items-center bg-[#2b2723] text-[#fffdf9] border-2 border-[#2b2723] shadow-[2px_2px_0_0_#ea580c] px-2.5 py-0.5 font-vt text-xl sm:text-2xl tracking-wide min-h-[2rem]">
-                  <span>{displayRole}</span>
+                <span className="inline-flex items-center h-9 sm:h-10 max-w-full bg-[#2b2723] text-[#fffdf9] border-2 border-[#2b2723] shadow-[2px_2px_0_0_#ea580c] px-2.5 font-vt text-xl sm:text-2xl leading-none tracking-wide whitespace-nowrap overflow-hidden">
+                  <span className="leading-none">&#8203;{displayRole}</span>
                   <span
                     aria-hidden="true"
-                    className="retro-cursor inline-block w-2 h-4 sm:h-5 bg-[#10b981] ml-1.5"
+                    className={`retro-cursor inline-block shrink-0 w-2 h-4 sm:h-5 bg-[#10b981] ${
+                      displayRole ? "ml-1.5" : "ml-0"
+                    }`}
                   />
                 </span>
               </div>
