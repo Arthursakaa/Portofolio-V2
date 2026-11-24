@@ -4,6 +4,11 @@ export interface ProjectImage {
   bg?: string;
 }
 
+export interface ProjectRepoLink {
+  label: string;
+  url: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -17,6 +22,7 @@ export interface Project {
   demoUrl?: string;
   videoUrl?: string;
   githubUrl: string;
+  githubRepos?: ProjectRepoLink[];
   featured?: boolean;
   status: "Completed" | "Active" | "Prototype";
   year: string;
@@ -58,19 +64,19 @@ export const portfolioData = {
     displayName: "Arthur Saka",
     callsign: "ARTHUR // SAKA",
     title: "Computer Science Student @ BINUS University",
-    role: "Software & Web Developer (Full-Stack • Frontend • Backend • AI)",
+    role: "Software Engineer (Full-Stack Web • Mobile • Backend • AI)",
     guild: "BINUS University",
     major: "Computer Science",
-    classType: "Software & Web Engineer",
+    classType: "Full-Stack & Mobile Dev",
     level: "LVL.21",
-    status: "OPEN TO TECH INTERNSHIPS (SWE / WEB / AI — 2026)",
+    status: "OPEN TO TECH INTERNSHIPS (SWE / WEB / MOBILE / AI — 2026)",
     location: "Malang, Indonesia",
     tagline:
-      "Computer Science undergraduate crafting reliable web applications, backend systems, and practical AI tools. Open to Software Engineering, Full-Stack, Frontend, Backend, or AI internships.",
+      "Computer Science undergraduate crafting web applications, cross-platform mobile apps, backend APIs, and practical AI tools. Open to Software Engineering, Full-Stack, Frontend, Backend, Mobile, or AI internships.",
     about:
-      "I am a Computer Science student at BINUS University based in Malang, Indonesia, focused on building reliable web applications, backend services, and practical AI systems. I divide my time between engineering backends with Laravel, Go, and Express.js, crafting responsive frontends in React and Next.js, and integrating applied machine learning with Python. I value clean code, thoughtful architecture, and software that solves real user pain points. Currently seeking 2026 internship opportunities in Software Engineering, Full-Stack, Frontend, Backend, or AI development.",
+      "I am a Computer Science student at BINUS University @Malang focused on building reliable web applications, cross-platform mobile apps, backend services, and practical AI integrations. I divide my time between engineering backends with Go, Laravel, and Express.js, crafting responsive interfaces in React, Next.js, and React Native (Expo), and integrating applied machine learning with Python and Ollama. I value clean code, automated testing, and software that solves real user pain points. Currently seeking 2026 internship opportunities in Software Engineering, Full-Stack, Frontend, Backend, Mobile, or AI development.",
     traits: [
-      { label: "FOCUS", val: "Web • Backend • AI" },
+      { label: "FOCUS", val: "Web • Mobile • AI" },
       { label: "GUILD", val: "BINUS University" },
       { label: "LOCATION", val: "Malang, ID" },
       { label: "STATUS", val: "Open to Internships" },
@@ -89,7 +95,7 @@ export const portfolioData = {
     fileName: "CV_I_Gede_Arthur_Saka_Dewantara.pdf",
     fileUrl: "/CV_I_Gede_Arthur_Saka_Dewantara.pdf",
     title: "Curriculum Vitae",
-    subtitle: "Software Engineering & Web/AI Internships",
+    subtitle: "Software Engineering, Web, Mobile & AI Internships",
     lastUpdated: "2026",
     status: "Available for Download",
     format: "PDF (Print & Machine Readable)",
@@ -99,17 +105,28 @@ export const portfolioData = {
   projects: [
     {
       id: "fitnessvals",
-      title: "FitnessVals Ecosystem",
-      category: "Full-Stack / AI Health",
+      title: "FitnessVals Ecosystem (Web & Mobile)",
+      category: "Full-Stack / Mobile & AI",
       badge: "FEATURED QUEST",
       description:
-        "An end-to-end gym management and health tracking platform built with a dual-backend architecture—pairing Laravel 12 for web workflows and WebSocket broadcasting with a Go 1.25 (Gin, GORM) REST microservice.",
+        "Multi-platform gym management and fitness tracking ecosystem pairing a Laravel 12 web platform with a React Native (Expo) mobile app, powered by Go (Gin, GORM) REST APIs, Laravel Reverb WebSockets, and Ollama AI meal analysis.",
       highlights: [
-        "Built dual-backend architecture pairing Laravel 12 (Blade, Tailwind CSS v4, Vite) and a Go 1.25 (Gin, GORM) service backed by a 23-migration MySQL schema",
-        "Engineered 27 Go REST endpoints with JWT auth, a rule-based meal recommendation engine, and a Mifflin-St Jeor BMI/BMR/TDEE calculator",
-        "Synced live gym class capacity across clients using SQL transaction booking guards and Laravel Reverb WebSockets (ClassBooked events)",
+        "Built a multi-platform system pairing a Laravel 12 (Blade, Tailwind CSS v4, Vite, Reverb WebSockets) web app and a 7-screen React Native (Expo, TypeScript, NativeWind, Zustand) mobile app backed by Go (Gin, GORM) and MySQL",
+        "Engineered JWT-protected Go REST APIs covering Mifflin-St Jeor BMI/BMR/TDEE tracking, SQL-guarded live class booking (ClassBooked), and Ollama Vision/LLM meal analysis (minicpm-v) with an offline fallback engine",
+        "Hardened backend reliability by refactoring DB, JWT, and API configs to environment variables, adding GET /api/health, and writing Go unit and HTTP tests (jwt, ai_service, routes)",
       ],
-      stack: ["Laravel 12", "Go (Gin)", "GORM", "MySQL", "WebSockets", "Tailwind CSS v4", "Vite"],
+      stack: [
+        "Laravel 12",
+        "React Native",
+        "Expo",
+        "Go (Gin)",
+        "GORM",
+        "MySQL",
+        "Ollama AI",
+        "WebSockets",
+        "TypeScript",
+        "Tailwind CSS",
+      ],
       images: [
         {
           src: "/projects/fitnessvals-hero.jpg",
@@ -129,6 +146,10 @@ export const portfolioData = {
       ],
       videoUrl: "https://youtu.be/tH5LhTrzbOs?si=b_J93EbtoCH1-P8k",
       githubUrl: "https://github.com/Arthursakaa/Web_FitnessVals",
+      githubRepos: [
+        { label: "Web Repo", url: "https://github.com/Arthursakaa/Web_FitnessVals" },
+        { label: "Mobile App Repo", url: "https://github.com/Billydvst123/FitnessVals" },
+      ],
       featured: true,
       status: "Active",
       year: "2026",
@@ -197,34 +218,18 @@ export const portfolioData = {
       status: "Completed",
       year: "2026",
     },
-    {
-      id: "webcv-ppt",
-      title: "Interactive CV Portfolio v1",
-      category: "Frontend / Creative",
-      badge: "PORTFOLIO",
-      description:
-        "Interactive web portfolio presenting professional milestones, technical competencies, and project showcases with smooth micro-interactions.",
-      highlights: [
-        "Built component-driven React architecture bundled with Vite for fast HMR and optimized load times",
-        "Designed responsive bento-grid layouts with scroll-triggered animations and high-contrast typography",
-      ],
-      stack: ["React", "JavaScript", "Vite", "CSS3"],
-      githubUrl: "https://github.com/Arthursakaa/WebCV_PPT",
-      status: "Completed",
-      year: "2026",
-    },
   ] as Project[],
 
   skills: [
     {
-      name: "Frontend Craft",
+      name: "Frontend & Mobile",
       slot: "SLOT 01 // INTERFACE",
       items: [
-        { name: "React & Next.js", tag: "Primary", iconKey: "react" },
+        { name: "React & Next.js", tag: "Web", iconKey: "react" },
+        { name: "React Native & Expo", tag: "Mobile", iconKey: "expo" },
         { name: "TypeScript / JavaScript", tag: "Core", iconKey: "ts" },
-        { name: "Tailwind CSS v4", tag: "Styling", iconKey: "tailwind" },
-        { name: "HTML5 / CSS3 & Blade", tag: "Markup", iconKey: "html" },
-        { name: "Vite & Chart.js", tag: "Web UI", iconKey: "vite" },
+        { name: "Tailwind CSS & NativeWind", tag: "Styling", iconKey: "tailwind" },
+        { name: "Blade, Vite & Chart.js", tag: "Web UI", iconKey: "vite" },
       ],
     },
     {
@@ -244,19 +249,20 @@ export const portfolioData = {
       items: [
         { name: "Python", tag: "Primary", iconKey: "python" },
         { name: "scikit-learn", tag: "ML", iconKey: "scikit" },
+        { name: "Ollama (Vision / LLM)", tag: "AI Engine", iconKey: "ollama" },
         { name: "Pandas & NumPy", tag: "Data", iconKey: "data" },
         { name: "Flask (ML Inference)", tag: "API", iconKey: "flask" },
       ],
     },
     {
-      name: "Tools & Workflow",
+      name: "Testing & Tools",
       slot: "SLOT 04 // ARSENAL",
       items: [
+        { name: "Go Testing (httptest)", tag: "Testing", iconKey: "test" },
         { name: "Git & GitHub", tag: "VCS", iconKey: "git" },
         { name: "Postman & Zod", tag: "API / Val", iconKey: "postman" },
-        { name: "Figma", tag: "UI/UX", iconKey: "figma" },
-        { name: "Vercel & Railway", tag: "Deploy", iconKey: "cloud" },
-        { name: "Antigravity", tag: "AI IDE", iconKey: "antigravity" },
+        { name: "Zustand & Axios", tag: "State / HTTP", iconKey: "zustand" },
+        { name: "Figma, Vercel & Railway", tag: "Deploy", iconKey: "cloud" },
       ],
     },
   ] as SkillCategory[],
@@ -275,23 +281,23 @@ export const portfolioData = {
       role: "Undergraduate in Computer Science",
       organization: "Bina Nusantara (BINUS) University @Malang",
       description:
-        "Pursuing B.Comp.Sc. (GPA: 3.34/4.00) with coursework focused on Software Engineering, Data Structures & Algorithms, Object-Oriented Analysis, and Database Systems. Actively translating classroom theory into full-stack web projects.",
+        "Pursuing B.Comp.Sc. (GPA: 3.34/4.00) with coursework focused on Software Engineering, Data Structures & Algorithms, Object-Oriented Analysis, and Database Systems. Actively translating classroom theory into web and mobile applications.",
       type: "Education",
     },
     {
       period: "2025 - 2026",
-      role: "Full-Stack Project Developer",
-      organization: "Independent & Academic Projects",
+      role: "Full-Stack & Mobile Project Developer",
+      organization: "Independent & Team Projects",
       description:
-        "Built FitnessVals (Laravel 12 + Go + WebSockets), EduBot (Express.js + Flask scikit-learn + TiDB Cloud MySQL), and DeBouquets E-Commerce (Laravel 12 + WebSockets).",
+        "Built FitnessVals (Laravel 12 + React Native/Expo + Go + Ollama AI + WebSockets), EduBot (Express.js + Flask scikit-learn + TiDB Cloud MySQL), and DeBouquets E-Commerce (Laravel 12 + WebSockets).",
       type: "Experience",
     },
     {
       period: "Current Quest",
       role: "Seeking Software & Tech Internships",
-      organization: "Target: 2026 • SWE, Full-Stack, Frontend, Backend & AI",
+      organization: "Target: 2026 • SWE, Full-Stack, Frontend, Backend, Mobile & AI",
       description:
-        "Actively seeking internship opportunities where I can contribute with React, Next.js, Laravel, Go, Node.js, MySQL, and Python across full-stack, frontend, backend, or AI engineering teams.",
+        "Actively seeking internship opportunities where I can contribute with React, Next.js, React Native, Expo, Laravel, Go, Node.js, MySQL, and Python across full-stack, frontend, backend, mobile, or AI engineering teams.",
       type: "Milestone",
     },
   ] as TimelineItem[],

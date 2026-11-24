@@ -125,7 +125,7 @@ export function PlayerCard({ soundEnabled }: PlayerCardProps) {
           </div>
           <div className="flex justify-between items-center text-[11px]">
             <span className="font-pixel text-[8px] text-[#575049]">SPECIALTY</span>
-            <span>Web, Backend &amp; AI</span>
+            <span>Web, Mobile, Backend &amp; AI</span>
           </div>
           <div className="flex justify-between items-center text-[11px]">
             <span className="font-pixel text-[8px] text-[#575049]">LOCATION</span>

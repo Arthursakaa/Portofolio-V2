@@ -12,10 +12,10 @@ Dokumen ini dibuat sebagai panduan latar belakang lengkap (*Project Blueprint & 
 - **Panggilan / Callsign:** Arthur Saka (`ARTHUR // SAKA`)
 - **Afiliasi Akademik:** Mahasiswa Ilmu Komputer / Computer Science (B.Comp.Sc.) di **BINUS University**
 - **Domisili:** Malang, Jawa Timur, Indonesia
-- **Target Utama:** Mencari kesempatan magang di bidang **Software Engineering, Full-Stack, Frontend, Backend, atau AI** (Target: 2026).
+- **Target Utama:** Mencari kesempatan magang di bidang **Software Engineering, Full-Stack, Frontend, Backend, Mobile, atau AI** (Target: 2026).
 - **Email:** `arthursakaa16@gmail.com`
 - **LinkedIn:** `https://www.linkedin.com/in/arthur-saka-16d`
-- **GitHub:** `https://github.com/Arthursakaa` (Repositori: `Web_FitnessVals`, `Edubot-GayaBelajar`, `Web_Debouquets`, `WebCV_PPT`)
+- **GitHub:** `https://github.com/Arthursakaa` (Repositori: `Web_FitnessVals`, `Edubot-GayaBelajar`, `Web_Debouquets`, plus kontributor di `Billydvst123/FitnessVals`)
 - **Foto Profil:** `public/profileporto.png`
 - **Berkas CV / Resume:** Terhubung langsung ke `public/CV_I_Gede_Arthur_Saka_Dewantara.pdf`
 

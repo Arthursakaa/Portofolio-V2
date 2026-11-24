@@ -36,7 +36,7 @@ export function HeroSection({ soundEnabled }: HeroSectionProps) {
             {/* Main Name Heading with Pixel Font */}
             <div className="space-y-2 stagger-enter stagger-delay-1">
               <p className="font-pixel text-xs sm:text-sm text-[#ea580c] tracking-widest">
-                SOFTWARE • WEB • AI DEVELOPER
+                SOFTWARE • WEB • MOBILE • AI DEVELOPER
               </p>
               <h1 className="font-pixel text-2xl sm:text-3xl md:text-4xl text-[#2b2723] leading-snug tracking-tight drop-shadow-[2px_2px_0_#fffdf9]">
                 {profile.fullName}
@@ -68,7 +68,7 @@ export function HeroSection({ soundEnabled }: HeroSectionProps) {
               <div className="bg-[#fffdf9] border-2 border-[#2b2723] px-2.5 py-2 shadow-[2px_2px_0_0_#2b2723]">
                 <p className="font-pixel text-[8px] text-[#575049]">CORE STACK</p>
                 <p className="font-bold text-[11px] sm:text-xs text-[#2b2723] leading-tight mt-1">
-                  Next.js · Laravel · Go
+                  Next.js · Expo · Go · Laravel
                 </p>
               </div>
               <div className="bg-[#fffdf9] border-2 border-[#2b2723] px-2.5 py-2 shadow-[2px_2px_0_0_#2b2723]">

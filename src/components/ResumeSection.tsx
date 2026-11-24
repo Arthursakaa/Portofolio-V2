@@ -41,7 +41,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
           </div>
 
           <p className="font-mono text-xs text-[#575049] max-w-sm">
-            Download formal resume and documentation for Software Engineering, Full-Stack, Frontend, Backend, or AI internship review.
+            Download formal resume and documentation for Software Engineering, Full-Stack, Frontend, Backend, Mobile, or AI internship review.
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
                   EXECUTIVE SUMMARY
                 </p>
                 <p>
-                  Computer Science undergraduate at BINUS University @Malang (GPA: 3.34/4.00). Focused on Full-Stack Web Development—building end-to-end interfaces, REST APIs, WebSocket services, relational databases, and applied Python ML integrations.
+                  Computer Science undergraduate at BINUS University @Malang (GPA: 3.34/4.00). Focused on Full-Stack Web and Mobile Development—building end-to-end React, Next.js, and React Native (Expo) apps, Go/Laravel/Express REST APIs, WebSocket services, and applied AI integrations.
                 </p>
                 <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#ded5c5] text-[11px]">
                   <div>
@@ -112,7 +112,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
                       <PixelCheckIcon size={12} />
                     </span>
                     <span>
-                      <strong>Full-Stack Architecture:</strong> Laravel 12 &amp; Eloquent, Go 1.25 (Gin/GORM) REST APIs, Express.js, and Next.js / React interfaces.
+                      <strong>Full-Stack &amp; Mobile Architecture:</strong> Laravel 12 &amp; Eloquent, React Native (Expo), Go (Gin/GORM) REST APIs with unit/HTTP tests, Express.js, and Next.js / React.
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
@@ -128,7 +128,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
                       <PixelCheckIcon size={12} />
                     </span>
                     <span>
-                      <strong>Machine Learning Integration:</strong> Python, scikit-learn, Pandas, NumPy, and Flask inference services with validation &amp; fallback handling.
+                      <strong>Applied AI Integration:</strong> Python, scikit-learn, and Flask ML inference plus local Ollama Vision/LLM services with offline fallback handling.
                     </span>
                   </li>
                 </ul>
@@ -161,7 +161,7 @@ export function ResumeSection({ soundEnabled }: ResumeSectionProps) {
                     {resume.fileName}
                   </h4>
                   <p className="font-vt text-base text-[#575049] mt-0.5">
-                    Updated for 2026 Software &amp; Web/AI Internships
+                    Updated for 2026 Software, Web, Mobile &amp; AI Internships
                   </p>
                 </div>
 

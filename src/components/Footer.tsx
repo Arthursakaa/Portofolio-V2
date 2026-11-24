@@ -33,7 +33,7 @@ export function Footer({ soundEnabled }: FooterProps) {
             <span>I GEDE ARTHUR SAKA DEWANTARA</span>
           </p>
           <p className="font-mono text-xs text-[#d6d3d1]">
-            Computer Science @ BINUS University • Full-Stack &amp; AI Portfolio
+            Computer Science @ BINUS University • Web, Mobile &amp; AI Portfolio
           </p>
           <p className="font-mono text-[11px] text-[#a8a29e]">
             Built with Next.js, TypeScript, and Tailwind CSS.

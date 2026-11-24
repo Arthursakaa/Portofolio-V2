@@ -13,48 +13,48 @@ interface AboutSectionProps {
 const PILLARS = [
   {
     id: "fullstack" as const,
-    title: "Full-Stack Web Development",
-    subtitle: "React • Next.js • TypeScript • Tailwind CSS",
+    title: "Full-Stack Web & Mobile",
+    subtitle: "React • Next.js • React Native • Expo",
     description:
-      "Building responsive, accessible, and fast web interfaces backed by structured application state and clean component architecture.",
-    deliverables: ["Responsive Web Apps", "Design System Implementation", "SSR & Static Optimization"],
+      "Building responsive web applications and cross-platform mobile apps backed by clean component architecture, TypeScript, and structured state management.",
+    deliverables: ["Responsive Web Apps", "Cross-Platform Mobile", "SSR & State Management"],
   },
   {
     id: "backend" as const,
     title: "Backend & Service Architecture",
-    subtitle: "Laravel • Go • MySQL/PostgreSQL • WebSockets",
+    subtitle: "Laravel • Go (Gin) • Express • MySQL",
     description:
-      "Designing relational database schemas, RESTful APIs, authentication flows, and real-time event broadcasting services.",
-    deliverables: ["REST API Design", "Database Modeling", "Real-Time WebSockets"],
+      "Designing relational database schemas, JWT-secured RESTful APIs, automated Go tests, and real-time event broadcasting with WebSockets.",
+    deliverables: ["REST API & Auth", "Database Modeling", "Real-Time WebSockets"],
   },
   {
     id: "ai" as const,
     title: "AI & Applied Machine Learning",
-    subtitle: "Python • scikit-learn • Pandas & NumPy • Flask",
+    subtitle: "Python • scikit-learn • Ollama • Flask",
     description:
-      "Training supervised classification models and integrating intelligent inference endpoints directly into user-facing web products.",
-    deliverables: ["Predictive Models", "ML API Integration", "Data Preprocessing"],
+      "Training supervised classification models and integrating local Vision/LLM inference and fallback engines directly into user-facing web and mobile products.",
+    deliverables: ["Predictive Models", "Ollama Vision / LLM", "ML API Integration"],
   },
 ];
 
 const ROLE_HIGHLIGHTS = [
   {
-    role: "Full-Stack Engineer Intern",
+    role: "Full-Stack / Mobile Intern",
     whyFit:
-      "Ready to own features end-to-end. Experienced connecting relational database schemas, structuring RESTful APIs in Laravel and Go, and building clean, accessible React interfaces.",
-    keyTech: ["Next.js / React", "TypeScript", "Laravel (PHP)", "Go", "MySQL / PostgreSQL"],
+      "Ready to own features end-to-end across web and mobile. Experienced connecting relational MySQL schemas, structuring RESTful APIs in Go and Laravel, and building responsive React, Next.js, and React Native (Expo) interfaces.",
+    keyTech: ["Next.js / React", "React Native & Expo", "TypeScript", "Laravel (PHP)", "Go (Gin)"],
   },
   {
-    role: "Frontend Developer Intern",
+    role: "Frontend / Mobile Intern",
     whyFit:
-      "Focused on component architecture, fluid animations, and responsive web performance. Deeply familiar with modern React 19, Next.js App Router, TypeScript, and Tailwind CSS.",
-    keyTech: ["React & Next.js", "TypeScript", "Tailwind CSS", "Responsive UI/UX", "Web Animation"],
+      "Focused on component architecture, responsive UI/UX, and smooth client state. Experienced with modern React 19, Next.js App Router, React Native (Expo), TypeScript, and Tailwind CSS.",
+    keyTech: ["React & Next.js", "React Native & Expo", "TypeScript", "Tailwind CSS", "Responsive UI/UX"],
   },
   {
     role: "Backend / AI Engineer Intern",
     whyFit:
-      "Comfortable modeling relational schemas, building concurrent services in Go, and deploying machine learning inference endpoints with Python.",
-    keyTech: ["Go (Golang)", "Python & Flask", "scikit-learn", "Laravel", "REST & WebSockets"],
+      "Comfortable modeling relational schemas, writing Go (Gin, GORM) REST services with unit/HTTP tests, and integrating Python ML or Ollama Vision/LLM inference with reliable fallback handling.",
+    keyTech: ["Go (Gin / GORM)", "Go Testing", "Python & Flask", "Ollama / scikit-learn", "MySQL & WebSockets"],
   },
 ];
 
@@ -80,7 +80,7 @@ export function AboutSection({ soundEnabled }: AboutSectionProps) {
             </h2>
           </div>
           <p className="font-mono text-xs text-[#575049] max-w-md">
-            Overview of my core engineering skills across Full-Stack, Frontend, Backend, and AI — ready for internships where these technologies fit.
+            Overview of my core engineering skills across Full-Stack Web, Mobile, Backend, and AI — ready for internships where these technologies fit.
           </p>
         </div>
 

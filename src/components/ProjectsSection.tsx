@@ -11,7 +11,7 @@ interface ProjectsSectionProps {
   soundEnabled: boolean;
 }
 
-const CATEGORIES = ["All Projects", "Full-Stack", "AI & ML", "Frontend"] as const;
+const CATEGORIES = ["All Projects", "Full-Stack", "Mobile", "AI & ML"] as const;
 type CategoryFilter = (typeof CATEGORIES)[number];
 
 function getProjectGallery(project: Project): ProjectImage[] {
@@ -91,8 +91,8 @@ export function ProjectsSection({ soundEnabled }: ProjectsSectionProps) {
     if (activeFilter === "AI & ML") {
       return p.category.toLowerCase().includes("ai");
     }
-    if (activeFilter === "Frontend") {
-      return p.category.toLowerCase().includes("frontend");
+    if (activeFilter === "Mobile") {
+      return p.category.toLowerCase().includes("mobile");
     }
     return true;
   });
@@ -155,115 +155,144 @@ export function ProjectsSection({ soundEnabled }: ProjectsSectionProps) {
         </div>
 
         {/* Project Grid with Visual Illustrations & Interactive Architecture Tabs */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+        <div
+          className={
+            filteredProjects.length === 1
+              ? "max-w-2xl mx-auto"
+              : "grid grid-cols-1 md:grid-cols-2 gap-7"
+          }
+        >
           {filteredProjects.map((project, index) => {
             const showArch = Boolean(expandedArchIds[project.id]);
             const gallery = getProjectGallery(project);
             const activeSlideIdx = activeSlideById[project.id] ?? 0;
             const currentSlide = gallery[activeSlideIdx];
+            const isSpanFull = filteredProjects.length === 3 && index === 0;
 
             return (
-              <div key={project.id} data-reveal data-reveal-item={index % 2} className="h-full">
-                <article className="h-full bg-[#fffdf9] pixel-border-lg pixel-card-interactive flex flex-col justify-between overflow-hidden">
-                  <div>
-                    {/* Top Visual Preview Banner / Interactive Architecture Toggle */}
-                    <div className="group/banner relative h-52 sm:h-56 w-full border-b-2 border-[#2b2723] bg-[#1e293b] overflow-hidden">
-                      {/* Both layers stay mounted and cross-fade, so rapid toggling retargets instead of hard-cutting */}
-                      <div
-                        aria-hidden={showArch}
-                        className={`absolute inset-0 transition-[opacity,filter] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${showArch ? "opacity-0 blur-[2px] pointer-events-none" : "opacity-100 blur-0"
-                          }`}
-                      >
-                        <ProjectVisualBanner
-                          projectId={project.id}
-                          imageUrl={currentSlide?.src}
-                          imageBg={currentSlide?.bg}
-                          title={
-                            currentSlide
-                              ? `${project.title} — ${currentSlide.label}`
-                              : project.title
-                          }
-                        />
-                      </div>
-
-                      {/* Clickable Enlarge Overlay when Screenshot Preview is Visible */}
-                      {gallery.length > 0 && !showArch ? (
-                        <button
-                          type="button"
-                          suppressHydrationWarning
-                          onClick={() => {
-                            if (soundEnabled) retroSound.playSelect();
-                            setPreviewModal({ project, slideIndex: activeSlideIdx });
-                          }}
-                          aria-label={`Enlarge ${project.title} screenshot (${currentSlide.label})`}
-                          title="Click to inspect full screenshot"
-                          className="absolute inset-0 z-10 w-full h-full cursor-zoom-in bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#ea580c]"
-                        >
-                          <span className="sr-only">Enlarge {project.title} screenshot</span>
-                        </button>
-                      ) : null}
-
-                      <div
-                        aria-hidden={!showArch}
-                        className={`absolute inset-0 w-full h-full bg-[#2b2723] text-[#f4efe6] p-4 flex flex-col justify-center font-mono text-xs overflow-y-auto transition-[opacity,filter] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${showArch ? "opacity-100 blur-0 z-10" : "opacity-0 blur-[2px] pointer-events-none"
-                          }`}
-                      >
-                        <p className="font-pixel text-[9px] text-[#10b981] mb-2">
-                          SYSTEM ARCHITECTURE &amp; KEY DELIVERABLES:
-                        </p>
-                        <ul className="space-y-1.5 list-disc list-inside text-xs text-[#e9e2d5]">
-                          {project.highlights.map((h, i) => (
-                            <li key={i} className="leading-snug">
-                              {h}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Multi-Screenshot Slide Controls (Bottom Left) */}
-                      {gallery.length > 1 && !showArch ? (
-                        <div className="absolute bottom-2 left-2 z-20 flex items-center gap-1 bg-[#fffdf9]/95 border-2 border-[#2b2723] px-1.5 py-0.5 shadow-[2px_2px_0_0_#2b2723]">
-                          <button
-                            type="button"
-                            suppressHydrationWarning
-                            onClick={() => stepSlide(project.id, gallery.length, -1)}
-                            aria-label={`Previous ${project.title} screenshot`}
-                            className="font-pixel text-[8px] px-1 py-0.5 text-[#2b2723] hover:bg-[#ea580c] hover:text-white cursor-pointer"
-                          >
-                            &lt;
-                          </button>
-                          <span className="font-pixel text-[7.5px] text-[#2b2723] px-0.5 whitespace-nowrap">
-                            {activeSlideIdx + 1}/{gallery.length}
-                            <span className="hidden lg:inline text-[#575049]">
-                              {" "}
-                              &middot; {currentSlide.label}
-                            </span>
-                          </span>
-                          <button
-                            type="button"
-                            suppressHydrationWarning
-                            onClick={() => stepSlide(project.id, gallery.length, 1)}
-                            aria-label={`Next ${project.title} screenshot`}
-                            className="font-pixel text-[8px] px-1 py-0.5 text-[#2b2723] hover:bg-[#ea580c] hover:text-white cursor-pointer"
-                          >
-                            &gt;
-                          </button>
-                        </div>
-                      ) : null}
-
-                      {/* Interactive Mode Switcher inside Banner */}
-                      <div className="absolute bottom-2 right-2 z-20">
-                        <button
-                          type="button"
-                          suppressHydrationWarning
-                          onClick={() => toggleCardView(project.id)}
-                          className="pixel-btn px-2.5 py-1 text-[8px] font-pixel bg-[#fffdf9] text-[#2b2723] hover:bg-[#ea580c] hover:text-white"
-                        >
-                          {showArch ? "View Visual Preview" : "View Architecture Notes"}
-                        </button>
-                      </div>
+              <div
+                key={project.id}
+                data-reveal
+                data-reveal-item={index % 2}
+                className={`h-full ${isSpanFull ? "md:col-span-2" : ""}`}
+              >
+                <article
+                  className={`h-full bg-[#fffdf9] pixel-border-lg pixel-card-interactive overflow-hidden ${
+                    isSpanFull
+                      ? "grid grid-cols-1 lg:grid-cols-12"
+                      : "flex flex-col justify-between"
+                  }`}
+                >
+                  {/* Visual Preview Banner / Interactive Architecture Toggle */}
+                  <div
+                    className={`group/banner relative w-full bg-[#1e293b] overflow-hidden ${
+                      isSpanFull
+                        ? "lg:col-span-6 h-56 sm:h-64 lg:h-full lg:min-h-[320px] border-b-2 lg:border-b-0 lg:border-r-2 border-[#2b2723]"
+                        : "h-52 sm:h-56 border-b-2 border-[#2b2723]"
+                    }`}
+                  >
+                    {/* Both layers stay mounted and cross-fade, so rapid toggling retargets instead of hard-cutting */}
+                    <div
+                      aria-hidden={showArch}
+                      className={`absolute inset-0 transition-[opacity,filter] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${showArch ? "opacity-0 blur-[2px] pointer-events-none" : "opacity-100 blur-0"
+                        }`}
+                    >
+                      <ProjectVisualBanner
+                        projectId={project.id}
+                        imageUrl={currentSlide?.src}
+                        imageBg={currentSlide?.bg}
+                        title={
+                          currentSlide
+                            ? `${project.title} — ${currentSlide.label}`
+                            : project.title
+                        }
+                      />
                     </div>
 
+                    {/* Clickable Enlarge Overlay when Screenshot Preview is Visible */}
+                    {gallery.length > 0 && !showArch ? (
+                      <button
+                        type="button"
+                        suppressHydrationWarning
+                        onClick={() => {
+                          if (soundEnabled) retroSound.playSelect();
+                          setPreviewModal({ project, slideIndex: activeSlideIdx });
+                        }}
+                        aria-label={`Enlarge ${project.title} screenshot (${currentSlide.label})`}
+                        title="Click to inspect full screenshot"
+                        className="absolute inset-0 z-10 w-full h-full cursor-zoom-in bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#ea580c]"
+                      >
+                        <span className="sr-only">Enlarge {project.title} screenshot</span>
+                      </button>
+                    ) : null}
+
+                    <div
+                      aria-hidden={!showArch}
+                      className={`absolute inset-0 w-full h-full bg-[#2b2723] text-[#f4efe6] p-4 sm:p-5 flex flex-col justify-center font-mono text-xs overflow-y-auto transition-[opacity,filter] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${showArch ? "opacity-100 blur-0 z-10" : "opacity-0 blur-[2px] pointer-events-none"
+                        }`}
+                    >
+                      <p className="font-pixel text-[9px] text-[#10b981] mb-2">
+                        SYSTEM ARCHITECTURE &amp; KEY DELIVERABLES:
+                      </p>
+                      <ul className="space-y-1.5 list-disc list-inside text-xs text-[#e9e2d5]">
+                        {project.highlights.map((h, i) => (
+                          <li key={i} className="leading-snug">
+                            {h}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Multi-Screenshot Slide Controls (Bottom Left) */}
+                    {gallery.length > 1 && !showArch ? (
+                      <div className="absolute bottom-2 left-2 z-20 flex items-center gap-1 bg-[#fffdf9]/95 border-2 border-[#2b2723] px-1.5 py-0.5 shadow-[2px_2px_0_0_#2b2723]">
+                        <button
+                          type="button"
+                          suppressHydrationWarning
+                          onClick={() => stepSlide(project.id, gallery.length, -1)}
+                          aria-label={`Previous ${project.title} screenshot`}
+                          className="font-pixel text-[8px] px-1 py-0.5 text-[#2b2723] hover:bg-[#ea580c] hover:text-white cursor-pointer"
+                        >
+                          &lt;
+                        </button>
+                        <span className="font-pixel text-[7.5px] text-[#2b2723] px-0.5 whitespace-nowrap">
+                          {activeSlideIdx + 1}/{gallery.length}
+                          <span className="hidden lg:inline text-[#575049]">
+                            {" "}
+                            &middot; {currentSlide.label}
+                          </span>
+                        </span>
+                        <button
+                          type="button"
+                          suppressHydrationWarning
+                          onClick={() => stepSlide(project.id, gallery.length, 1)}
+                          aria-label={`Next ${project.title} screenshot`}
+                          className="font-pixel text-[8px] px-1 py-0.5 text-[#2b2723] hover:bg-[#ea580c] hover:text-white cursor-pointer"
+                        >
+                          &gt;
+                        </button>
+                      </div>
+                    ) : null}
+
+                    {/* Interactive Mode Switcher inside Banner */}
+                    <div className="absolute bottom-2 right-2 z-20">
+                      <button
+                        type="button"
+                        suppressHydrationWarning
+                        onClick={() => toggleCardView(project.id)}
+                        className="pixel-btn px-2.5 py-1 text-[8px] font-pixel bg-[#fffdf9] text-[#2b2723] hover:bg-[#ea580c] hover:text-white"
+                      >
+                        {showArch ? "View Visual Preview" : "View Architecture Notes"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Content & Actions Column (wrapped together so Featured split aligns cleanly) */}
+                  <div
+                    className={`flex flex-col justify-between ${
+                      isSpanFull ? "lg:col-span-6" : "flex-1"
+                    }`}
+                  >
                     {/* Card Body */}
                     <div className="p-5">
                       <div className="flex items-center justify-between gap-2 mb-2.5">
@@ -285,74 +314,90 @@ export function ProjectsSection({ soundEnabled }: ProjectsSectionProps) {
                         {project.title}
                       </h3>
 
-                      <p className="text-sm text-[#2b2723] leading-relaxed">
+                      <p className="text-sm text-[#2b2723] leading-relaxed max-w-prose">
                         {project.description}
                       </p>
                     </div>
-                  </div>
 
-                  {/* Bottom: Stack & Links */}
-                  <div className="px-5 pb-5 pt-3 border-t-2 border-[#2b2723]/15 space-y-4 bg-[#f4efe6]/50">
-                    {/* Tech Stack Pills */}
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.stack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="text-[11px] font-mono font-semibold px-2 py-0.5 bg-[#fffdf9] text-[#2b2723] border border-[#2b2723]"
+                    {/* Bottom: Stack & Links */}
+                    <div className="px-5 pb-5 pt-3 border-t-2 border-[#2b2723]/15 space-y-4 bg-[#f4efe6]/50">
+                      {/* Tech Stack Pills */}
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.stack.map((tech) => (
+                          <span
+                            key={tech}
+                            className="text-[11px] font-mono font-semibold px-2 py-0.5 bg-[#fffdf9] text-[#2b2723] border border-[#2b2723]"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* External Action Links */}
+                      <div className="flex flex-wrap items-center gap-2.5">
+                        {project.githubRepos && project.githubRepos.length > 0 ? (
+                          project.githubRepos.map((repo) => (
+                            <a
+                              key={repo.url}
+                              href={repo.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={() => soundEnabled && retroSound.playLaser()}
+                              className="pixel-btn px-3.5 py-2 bg-[#2b2723] text-[#fffdf9] font-pixel text-[9px] hover:bg-[#3d3732] inline-flex items-center gap-1.5"
+                            >
+                              <PixelCodeIcon size={12} />
+                              <span>{repo.label}</span>
+                            </a>
+                          ))
+                        ) : (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => soundEnabled && retroSound.playLaser()}
+                            className="pixel-btn px-3.5 py-2 bg-[#2b2723] text-[#fffdf9] font-pixel text-[9px] hover:bg-[#3d3732] inline-flex items-center gap-1.5"
+                          >
+                            <PixelCodeIcon size={12} />
+                            <span>Source Code</span>
+                          </a>
+                        )}
+
+                        {project.demoUrl ? (
+                          <a
+                            href={project.demoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => soundEnabled && retroSound.playPowerUp()}
+                            className="pixel-btn px-3.5 py-2 bg-[#10b981] text-white font-pixel text-[9px] hover:bg-[#059669] inline-flex items-center gap-1.5"
+                          >
+                            <PixelSparkleIcon size={12} />
+                            <span>Live Demo</span>
+                          </a>
+                        ) : null}
+
+                        {project.videoUrl ? (
+                          <a
+                            href={project.videoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Watch project demo video on YouTube"
+                            onClick={() => soundEnabled && retroSound.playPowerUp()}
+                            className="pixel-btn px-3.5 py-2 bg-[#ea580c] text-white font-pixel text-[9px] hover:bg-[#c2410c] inline-flex items-center gap-1.5"
+                          >
+                            <PixelPlayIcon size={12} />
+                            <span>Video Demo</span>
+                          </a>
+                        ) : null}
+
+                        <button
+                          type="button"
+                          suppressHydrationWarning
+                          onClick={() => toggleCardView(project.id)}
+                          className="pixel-btn px-3 py-2 bg-[#fffdf9] text-[#2b2723] font-pixel text-[9px] hover:bg-[#e9e2d5]"
                         >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* External Action Links */}
-                    <div className="flex flex-wrap items-center gap-2.5">
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => soundEnabled && retroSound.playLaser()}
-                        className="pixel-btn px-3.5 py-2 bg-[#2b2723] text-[#fffdf9] font-pixel text-[9px] hover:bg-[#3d3732] inline-flex items-center gap-1.5"
-                      >
-                        <PixelCodeIcon size={12} />
-                        <span>Source Code</span>
-                      </a>
-
-                      {project.demoUrl ? (
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => soundEnabled && retroSound.playPowerUp()}
-                          className="pixel-btn px-3.5 py-2 bg-[#10b981] text-white font-pixel text-[9px] hover:bg-[#059669] inline-flex items-center gap-1.5"
-                        >
-                          <PixelSparkleIcon size={12} />
-                          <span>Live Demo</span>
-                        </a>
-                      ) : null}
-
-                      {project.videoUrl ? (
-                        <a
-                          href={project.videoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title="Watch project demo video on YouTube"
-                          onClick={() => soundEnabled && retroSound.playPowerUp()}
-                          className="pixel-btn px-3.5 py-2 bg-[#ea580c] text-white font-pixel text-[9px] hover:bg-[#c2410c] inline-flex items-center gap-1.5"
-                        >
-                          <PixelPlayIcon size={12} />
-                          <span>Video Demo</span>
-                        </a>
-                      ) : null}
-
-                      <button
-                        type="button"
-                        suppressHydrationWarning
-                        onClick={() => toggleCardView(project.id)}
-                        className="pixel-btn px-3 py-2 bg-[#fffdf9] text-[#2b2723] font-pixel text-[9px] hover:bg-[#e9e2d5]"
-                      >
-                        {showArch ? "Hide Details" : "Key Highlights"}
-                      </button>
+                          {showArch ? "Hide Details" : "Key Highlights"}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </article>

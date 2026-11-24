@@ -186,7 +186,7 @@ export function ContactTerminal({ soundEnabled }: ContactTerminalProps) {
                 Direct Contact Channels
               </h3>
               <p className="text-sm text-[#575049] mt-2 leading-relaxed">
-                Seeking 2026 internship opportunities across Software Engineering, Full-Stack, Frontend, Backend, or Applied AI teams. Reach out directly below.
+                Seeking 2026 internship opportunities across Software Engineering, Full-Stack, Frontend, Backend, Mobile, or Applied AI teams. Reach out directly below.
               </p>
             </div>
 
